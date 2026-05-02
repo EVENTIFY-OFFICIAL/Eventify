@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chat - Lens & Light</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+height:100vh;
+overflow:hidden;
+background:#dbe5ea;
+}
+
+/* FONDO */
+
+.chat-bg{
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(15,20,30,0.6),rgba(15,20,30,0.6)),
+url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1600&auto=format&fit=crop");
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+.blur{
+position:fixed;
+inset:0;
+backdrop-filter:blur(5px);
+z-index:-1;
+}
+
+/* HEADER */
+
+.chat-header{
+height:85px;
+padding:15px 20px;
+display:flex;
+align-items:center;
+gap:15px;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,0.15);
+color:white;
+}
+
+.back-btn{
+font-size:26px;
+cursor:pointer;
+text-decoration:none;
+color:white;
+}
+
+.provider-photo{
+width:52px;
+height:52px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid rgba(255,255,255,0.5);
+}
+
+.provider-info h2{
+font-size:20px;
+margin-bottom:2px;
+}
+
+.provider-info p{
+font-size:13px;
+opacity:0.85;
+}
+
+/* CHAT */
+
+.chat-container{
+height:calc(100vh - 165px);
+padding:25px 18px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+/* MENSAJES */
+
+.message{
+max-width:78%;
+padding:14px 18px;
+border-radius:24px;
+font-size:14px;
+line-height:1.6;
+animation:fadeIn .25s ease;
+position:relative;
+}
+
+.received{
+align-self:flex-start;
+background:rgba(255,255,255,0.9);
+color:#1A334A;
+border-bottom-left-radius:8px;
+}
+
+.sent{
+align-self:flex-end;
+background:#1A334A;
+color:white;
+border-bottom-right-radius:8px;
+}
+
+.time{
+font-size:11px;
+margin-top:6px;
+opacity:0.6;
+text-align:right;
+}
+
+/* INPUT */
+
+.chat-input-area{
+height:80px;
+padding:14px 18px;
+display:flex;
+gap:12px;
+align-items:center;
+background:rgba(255,255,255,0.16);
+backdrop-filter:blur(18px);
+}
+
+.chat-input{
+flex:1;
+padding:15px 18px;
+border:none;
+border-radius:30px;
+font-family:'Bodoni Moda', serif;
+font-size:14px;
+outline:none;
+background:rgba(255,255,255,0.94);
+}
+
+.send-btn{
+width:56px;
+height:56px;
+border:none;
+border-radius:50%;
+background:#1A334A;
+color:white;
+font-size:22px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.send-btn:hover{
+transform:scale(1.05);
+}
+
+/* SCROLL */
+
+.chat-container::-webkit-scrollbar{
+width:6px;
+}
+
+.chat-container::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.3);
+border-radius:10px;
+}
+
+/* ANIMACIÓN */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.message{
+max-width:88%;
+font-size:13px;
+}
+
+.provider-info h2{
+font-size:17px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="chat-bg"></div>
+<div class="blur"></div>
+
+<!-- HEADER -->
+
+<div class="chat-header">
+
+<a href="messages.html" class="back-btn">
+←
+</a>
+
+<img
+class="provider-photo"
+src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
+/>
+
+<div class="provider-info">
+<h2>Lens & Light</h2>
+<p>Activo hace 2 min</p>
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div class="chat-container" id="chatContainer">
+
+<div class="message received">
+¡Hola! 📸✨ Gracias por contactar a Lens & Light.
+<div class="time">6:14 PM</div>
+</div>
+
+<div class="message sent">
+Holaa 😊 Estoy buscando foto y video para una boda.
+<div class="time">6:15 PM</div>
+</div>
+
+<div class="message received">
+¡Qué emoción! 💍
+Nos especializamos en fotografía editorial y video cinematográfico.
+<div class="time">6:15 PM</div>
+</div>
+
+<div class="message sent">
+Ayyy justo eso quiero 😭✨
+<div class="time">6:16 PM</div>
+</div>
+
+<div class="message received">
+Nuestro estilo busca capturar momentos naturales y elegantes 🌿
+<div class="time">6:16 PM</div>
+</div>
+
+<div class="message received">
+Incluimos:
+• cobertura completa
+• sesión previa
+• drone
+• teaser cinematográfico
+• galería digital 📷
+<div class="time">6:17 PM</div>
+</div>
+
+<div class="message sent">
+¿También hacen video vertical para reels? 👀
+<div class="time">6:18 PM</div>
+</div>
+
+<div class="message received">
+Sí 😊✨
+Tenemos contenido especial para Instagram y TikTok el mismo día del evento.
+<div class="time">6:18 PM</div>
+</div>
+
+<div class="message sent">
+OMG jajajaja me encanta eso.
+<div class="time">6:19 PM</div>
+</div>
+
+<div class="message received">
+😂💕
+Además entregamos avances rápidos para que puedan compartir recuerdos súper pronto.
+<div class="time">6:19 PM</div>
+</div>
+
+<div class="message received">
+También trabajamos iluminación profesional para tomas nocturnas ✨
+<div class="time">6:20 PM</div>
+</div>
+
+<div class="message sent">
+¿Me puedes mandar ejemplos de bodas?
+<div class="time">6:20 PM</div>
+</div>
+
+<div class="message received">
+Claro 🙌
+Te enviaré galerías completas y algunos highlights cinematográficos.
+<div class="time">6:21 PM</div>
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="chat-input-area">
+
+<input
+type="text"
+class="chat-input"
+id="messageInput"
+placeholder="Escribe un mensaje..."
+>
+
+<button class="send-btn" onclick="sendMessage()">
+➤
+</button>
+
+</div>
+
+<script>
+
+const chatContainer =
+document.getElementById("chatContainer");
+
+const input =
+document.getElementById("messageInput");
+
+/* RESPUESTAS AUTOMÁTICAS */
+
+const autoReplies = [
+
+"¡Claro! 📸",
+"Qué emoción cubrir su evento ✨",
+"Sí 😊 trabajamos bodas premium.",
+"Te puedo mandar galerías completas.",
+"También hacemos video cinematográfico 🎬",
+"Tenemos paquetes con drone ✨",
+"Claro 🙌 hacemos contenido para redes sociales.",
+"Nos encanta capturar momentos naturales 💕",
+"Sí tenemos disponibilidad para esa fecha.",
+"El teaser se entrega súper rápido ✨",
+"También hacemos sesiones pre-boda 🌿",
+"Trabajamos iluminación profesional para fotos nocturnas.",
+"Podemos personalizar completamente la cobertura.",
+"Te enviaré ejemplos de eventos anteriores 📷",
+"Nuestro estilo es muy elegante y editorial ✨"
+
+];
+
+/* ENVIAR MENSAJE */
+
+function sendMessage(){
+
+const text = input.value.trim();
+
+if(text==="") return;
+
+const now = new Date();
+
+let hour =
+now.getHours().toString().padStart(2,"0");
+
+let minute =
+now.getMinutes().toString().padStart(2,"0");
+
+let time =
+`${hour}:${minute}`;
+
+chatContainer.innerHTML += `
+
+<div class="message sent">
+${text}
+<div class="time">${time}</div>
+</div>
+
+`;
+
+input.value = "";
+
+scrollBottom();
+
+/* RESPUESTA AUTOMÁTICA */
+
+setTimeout(()=>{
+
+let randomReply =
+autoReplies[
+Math.floor(Math.random()*autoReplies.length)
+];
+
+chatContainer.innerHTML += `
+
+<div class="message received">
+${randomReply}
+<div class="time">${time}</div>
+</div>
+
+`;
+
+scrollBottom();
+
+},1000);
+
+}
+
+/* ENTER */
+
+input.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+sendMessage();
+}
+
+});
+
+/* SCROLL */
+
+function scrollBottom(){
+
+chatContainer.scrollTop =
+chatContainer.scrollHeight;
+
+}
+
+scrollBottom();
+
+</script>
+
+</body>
+</html>

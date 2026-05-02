@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil Proveedor - Flores de Luna | Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:0 20px 140px;
+background:
+linear-gradient(rgba(234,242,245,0.92),rgba(234,242,245,0.92)),
+url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+overflow-x:hidden;
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.65);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* HERO */
+
+.hero{
+position:relative;
+height:340px;
+border-radius:0 0 45px 45px;
+overflow:hidden;
+margin:0 -20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.18);
+}
+
+.hero img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.hero-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.12));
+display:flex;
+align-items:flex-end;
+padding:45px 30px;
+color:white;
+}
+
+.hero-overlay h1{
+font-size:42px;
+margin-bottom:10px;
+font-weight:700;
+}
+
+.hero-overlay p{
+font-size:16px;
+max-width:500px;
+line-height:1.6;
+}
+
+/* PROFILE */
+
+.profile{
+max-width:1100px;
+margin:auto;
+margin-top:-85px;
+position:relative;
+z-index:5;
+}
+
+.profile-top{
+text-align:center;
+}
+
+.profile-img{
+width:165px;
+height:165px;
+border-radius:50%;
+object-fit:cover;
+border:7px solid white;
+box-shadow:0 12px 35px rgba(0,0,0,0.2);
+margin-bottom:20px;
+}
+
+/* VERIFIED */
+
+.verified{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:10px 18px;
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(10px);
+border-radius:30px;
+margin-bottom:16px;
+font-size:14px;
+}
+
+/* STARS */
+
+.stars{
+font-size:18px;
+color:#b68a20;
+margin-bottom:12px;
+}
+
+/* ICONS */
+
+.icon-row{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:20px;
+}
+
+.favorite{
+font-size:32px;
+cursor:pointer;
+color:#d0d0d0;
+transition:0.3s;
+}
+
+.favorite.active{
+color:#ff4d6d;
+transform:scale(1.1);
+}
+
+.save{
+width:30px;
+height:30px;
+stroke:#c9c9c9;
+fill:none;
+stroke-width:2;
+cursor:pointer;
+transition:0.3s;
+}
+
+.save.active{
+fill:#1A334A;
+stroke:#1A334A;
+}
+
+/* STATUS ROW */
+
+.status-row{
+display:flex;
+justify-content:center;
+gap:14px;
+flex-wrap:wrap;
+margin-top:24px;
+}
+
+.status-pill{
+padding:12px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.65);
+backdrop-filter:blur(10px);
+font-size:13px;
+box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* QUICK STATS */
+
+.quick-stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:45px;
+}
+
+.stat-card{
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(12px);
+padding:28px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
+}
+
+.stat-card h3{
+font-size:14px;
+margin-bottom:12px;
+opacity:0.7;
+}
+
+.stat-card p{
+font-size:32px;
+font-weight:700;
+}
+
+/* DESCRIPTION */
+
+.description-box{
+margin-top:40px;
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(12px);
+padding:35px;
+border-radius:35px;
+line-height:1.9;
+font-size:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* TAGS */
+
+.tags{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:14px;
+margin-top:30px;
+}
+
+.tag{
+padding:12px 18px;
+background:white;
+border-radius:30px;
+font-size:13px;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+}
+
+/* TIMELINE */
+
+.timeline{
+margin-top:55px;
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:24px;
+text-align:center;
+}
+
+.timeline-box{
+background:rgba(255,255,255,0.58);
+backdrop-filter:blur(12px);
+padding:35px;
+border-radius:35px;
+}
+
+.timeline-item{
+display:flex;
+gap:16px;
+margin-bottom:24px;
+align-items:flex-start;
+}
+
+.timeline-item:last-child{
+margin-bottom:0;
+}
+
+.timeline-dot{
+width:16px;
+height:16px;
+background:#1A334A;
+border-radius:50%;
+margin-top:6px;
+}
+
+/* PORTFOLIO */
+
+.portfolio{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:30px;
+}
+
+.portfolio img{
+width:100%;
+aspect-ratio:3/4;
+object-fit:cover;
+border-radius:28px;
+cursor:pointer;
+transition:0.35s;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+.portfolio img:hover{
+transform:scale(1.04);
+}
+
+/* PACKAGES */
+
+.packages{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:24px;
+margin-top:30px;
+}
+
+.package-card{
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:35px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.package-card:hover{
+transform:translateY(-5px);
+}
+
+.package-card h4{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.package-price{
+font-size:36px;
+font-weight:700;
+margin:20px 0;
+}
+
+/* REVIEWS */
+
+.reviews{
+margin-top:60px;
+}
+
+.review{
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(12px);
+padding:22px;
+border-radius:25px;
+margin-bottom:18px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.review strong{
+display:block;
+margin-bottom:8px;
+}
+
+.review-actions{
+margin-top:14px;
+display:flex;
+gap:18px;
+font-size:14px;
+}
+
+.review-actions span{
+cursor:pointer;
+}
+
+/* BUTTONS */
+
+.buttons{
+margin-top:40px;
+}
+
+.message-btn,
+.quote-btn,
+.add-review-btn{
+width:100%;
+padding:17px;
+border-radius:25px;
+border:none;
+margin-bottom:14px;
+cursor:pointer;
+font-size:15px;
+font-family:'Bodoni Moda', serif;
+transition:0.3s;
+}
+
+.message-btn{
+background:#1A334A;
+color:white;
+}
+
+.quote-btn{
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+}
+
+.add-review-btn{
+background:white;
+border:1px solid #1A334A;
+color:#1A334A;
+}
+
+.message-btn:hover,
+.quote-btn:hover,
+.add-review-btn:hover{
+transform:translateY(-3px);
+}
+
+.report-btn{
+background:none;
+border:none;
+color:#c94c4c;
+cursor:pointer;
+margin-top:10px;
+font-size:14px;
+}
+
+/* MODALS */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+padding:20px;
+}
+
+.modal-content{
+background:white;
+width:100%;
+max-width:430px;
+padding:28px;
+border-radius:30px;
+position:relative;
+text-align:center;
+animation:fadeUp 0.35s ease;
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.close-modal{
+position:absolute;
+top:15px;
+right:18px;
+font-size:22px;
+cursor:pointer;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select{
+width:100%;
+margin-top:12px;
+padding:14px;
+border-radius:16px;
+border:1px solid #d8d8d8;
+font-family:'Bodoni Moda', serif;
+resize:none;
+}
+
+.modal-content button{
+margin-top:20px;
+padding:14px 22px;
+border:none;
+border-radius:18px;
+background:#1A334A;
+color:white;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+}
+
+/* STARS */
+
+.star-rating{
+font-size:32px;
+margin-top:15px;
+}
+
+.star-rating span{
+color:#ccc;
+cursor:pointer;
+transition:0.2s;
+}
+
+.star-rating span.active{
+color:#f4b400;
+}
+
+/* IMAGE VIEWER */
+
+.image-viewer img{
+width:90%;
+max-width:900px;
+max-height:85%;
+object-fit:cover;
+border-radius:30px;
+}
+
+.close-img{
+position:absolute;
+top:30px;
+right:35px;
+font-size:40px;
+color:white;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+height:280px;
+}
+
+.hero-overlay h1{
+font-size:34px;
+}
+
+.portfolio{
+grid-template-columns:repeat(2,1fr);
+}
+
+.quick-stats{
+grid-template-columns:1fr;
+}
+
+.section-title{
+font-size:28px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="search-providers.html" class="back-btn">
+← Regresar
+</a>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop">
+
+<div class="hero-overlay">
+
+<div>
+
+<h1>Flores de Luna</h1>
+
+<p>
+Decoración floral elegante para bodas, eventos exclusivos y celebraciones inolvidables.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="profile">
+
+<div class="profile-top">
+
+<img class="profile-img"
+src="https://randomuser.me/api/portraits/women/44.jpg">
+
+<div class="verified">
+✔ Proveedor verificado por Eventify
+</div>
+
+<div class="stars">
+★★★★★ 4.8 (87 reseñas)
+</div>
+
+<div class="icon-row">
+
+<span class="favorite" id="favBtn">
+♥
+</span>
+
+<svg class="save" id="saveBtn" viewBox="0 0 24 24">
+<path d="M6 3h12v18l-6-4-6 4z"/>
+</svg>
+
+</div>
+
+<div class="status-row">
+
+<div class="status-pill">
+🌸 Especialistas en bodas
+</div>
+
+<div class="status-pill">
+📍 Ciudad de México
+</div>
+
+<div class="status-pill">
+💐 Arreglos premium
+</div>
+
+<div class="status-pill">
+✨ Decoración elegante
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="quick-stats">
+
+<div class="stat-card">
+<h3>Eventos decorados</h3>
+<p>190+</p>
+</div>
+
+<div class="stat-card">
+<h3>Años de experiencia</h3>
+<p>6+</p>
+</div>
+
+<div class="stat-card">
+<h3>Clientes satisfechos</h3>
+<p>96%</p>
+</div>
+
+</div>
+
+<!-- DESCRIPTION -->
+
+<div class="description-box">
+
+Flores de Luna es un estudio especializado en decoración floral para bodas,
+eventos sociales y celebraciones exclusivas.
+
+Creamos arreglos personalizados, instalaciones florales impactantes y diseños
+románticos que transforman cualquier espacio en una experiencia visual inolvidable.
+
+</div>
+
+<!-- TAGS -->
+
+<div class="tags">
+
+<div class="tag">Bodas</div>
+<div class="tag">Centros de mesa</div>
+<div class="tag">Arcos florales</div>
+<div class="tag">Eventos premium</div>
+<div class="tag">Decoración elegante</div>
+<div class="tag">Diseño floral</div>
+
+</div>
+
+<!-- TIMELINE -->
+
+<div class="timeline">
+
+<h2 class="section-title">
+Actividad reciente
+</h2>
+
+<div class="timeline-box">
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div>
+<strong>Nuevo montaje floral</strong>
+<p>Decoración en Hacienda San Miguel · hace 3 días</p>
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div>
+<strong>Nueva reseña 5 estrellas</strong>
+<p>"Todo quedó espectacular y elegante."</p>
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div>
+<strong>Nuevo portafolio agregado</strong>
+<p>Colección primavera romántica</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PORTFOLIO -->
+
+<div class="portfolio-section">
+
+<h2 class="section-title">
+Portafolio
+</h2>
+
+<div class="portfolio">
+
+<img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9"
+onclick="openImage(this.src)">
+
+<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+onclick="openImage(this.src)">
+
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552"
+onclick="openImage(this.src)">
+
+<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf"
+onclick="openImage(this.src)">
+
+<img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71"
+onclick="openImage(this.src)">
+
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc"
+onclick="openImage(this.src)">
+
+</div>
+
+</div>
+
+<!-- PACKAGES -->
+
+<div class="packages-section">
+
+<h2 class="section-title">
+Paquetes
+</h2>
+
+<div class="packages">
+
+<div class="package-card">
+
+<h4>Esencial Floral</h4>
+
+<p>Centros de mesa básicos</p>
+
+<div class="package-price">
+$7,500
+</div>
+
+<p>Eventos pequeños</p>
+
+</div>
+
+<div class="package-card">
+
+<h4>Premium Garden</h4>
+
+<p>Decoración completa</p>
+
+<div class="package-price">
+$14,000
+</div>
+
+<p>Bodas y XV años</p>
+
+</div>
+
+<div class="package-card">
+
+<h4>Luxury Experience</h4>
+
+<p>Diseño floral exclusivo</p>
+
+<div class="package-price">
+$22,000
+</div>
+
+<p>Evento completo</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REVIEWS -->
+
+<div class="reviews">
+
+<h2 class="section-title">
+Reseñas
+</h2>
+
+<div id="reviewsContainer"></div>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button class="message-btn"
+onclick="location.href='Chat-C.html'">
+
+Mandar mensaje
+
+</button>
+
+<button class="quote-btn"
+onclick="openQuoteModal()">
+
+Solicitar cotización
+
+</button>
+
+<button class="add-review-btn"
+onclick="openReviewModal()">
+
+Agregar / Editar mi reseña
+
+</button>
+
+<button class="report-btn"
+onclick="openReportModal()">
+
+Reportar proveedor
+
+</button>
+
+</div>
+
+</div>
+
+<!-- REVIEW MODAL -->
+
+<div class="modal" id="reviewModal">
+
+<div class="modal-content">
+
+<h3>Mi reseña</h3>
+
+<div class="star-rating" id="starRating"></div>
+
+<textarea id="reviewText"
+rows="4"
+placeholder="Escribe tu reseña..."></textarea>
+
+<button onclick="saveReview()">
+Guardar reseña
+</button>
+
+</div>
+
+</div>
+
+<!-- REPORT MODAL -->
+
+<div class="modal" id="reportModal">
+
+<div class="modal-content">
+
+<span class="close-modal"
+onclick="reportModal.style.display='none'">
+✕
+</span>
+
+<h3>Reportar proveedor</h3>
+
+<select id="reportReason">
+
+<option value="">
+Selecciona un motivo
+</option>
+
+<option>
+Mal servicio
+</option>
+
+<option>
+Información falsa
+</option>
+
+<option>
+Incumplimiento
+</option>
+
+<option>
+Contenido inapropiado
+</option>
+
+<option>
+Otro
+</option>
+
+</select>
+
+<textarea id="reportText"
+rows="4"
+placeholder="Describe tu reporte..."></textarea>
+
+<button onclick="submitReport()">
+Enviar reporte
+</button>
+
+</div>
+
+</div>
+
+<!-- QUOTE MODAL -->
+
+<div class="modal" id="quoteModal">
+
+<div class="modal-content">
+
+<span class="close-modal"
+onclick="quoteModal.style.display='none'">
+✕
+</span>
+
+<h3>Solicitar cotización</h3>
+
+<input type="text"
+placeholder="Nombre del evento">
+
+<input type="date">
+
+<input type="number"
+placeholder="Número de invitados">
+
+<textarea rows="4"
+placeholder="Cuéntanos más detalles..."></textarea>
+
+<button onclick="sendQuote()">
+Enviar solicitud
+</button>
+
+</div>
+
+</div>
+
+<!-- IMAGE MODAL -->
+
+<div class="modal image-viewer"
+id="imageModal">
+
+<span class="close-img"
+onclick="closeImage()">
+✕
+</span>
+
+<img id="bigImage">
+
+</div>
+
+<script>
+
+const favBtn =
+document.getElementById("favBtn");
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+const reviewModal =
+document.getElementById("reviewModal");
+
+const reportModal =
+document.getElementById("reportModal");
+
+const quoteModal =
+document.getElementById("quoteModal");
+
+const starContainer =
+document.getElementById("starRating");
+
+const reviewText =
+document.getElementById("reviewText");
+
+const reviewsContainer =
+document.getElementById("reviewsContainer");
+
+let selectedStars = 0;
+
+/* FAVORITOS */
+
+if(localStorage.getItem("favFloresLuna")==="true"){
+favBtn.classList.add("active");
+}
+
+if(localStorage.getItem("saveFloresLuna")==="true"){
+saveBtn.classList.add("active");
+}
+
+favBtn.onclick = function(){
+
+this.classList.toggle("active");
+
+localStorage.setItem(
+"favFloresLuna",
+this.classList.contains("active")
+);
+
+}
+
+saveBtn.onclick = function(){
+
+this.classList.toggle("active");
+
+localStorage.setItem(
+"saveFloresLuna",
+this.classList.contains("active")
+);
+
+}
+
+/* STARS */
+
+function renderStars(){
+
+starContainer.innerHTML = "";
+
+for(let i=1;i<=5;i++){
+
+let star =
+document.createElement("span");
+
+star.innerHTML = "★";
+
+if(i<=selectedStars){
+star.classList.add("active");
+}
+
+star.onclick = function(){
+
+selectedStars = i;
+
+renderStars();
+
+}
+
+starContainer.appendChild(star);
+
+}
+
+}
+
+renderStars();
+
+/* REVIEWS */
+
+const defaultReviews = [
+
+{
+name:"Valeria Ruiz",
+stars:5,
+text:"Las flores fueron espectaculares.",
+likes:10,
+dislikes:0
+},
+
+{
+name:"Daniela Mora",
+stars:4,
+text:"Decoración elegante y delicada.",
+likes:7,
+dislikes:1
+},
+
+{
+name:"Fernanda Gil",
+stars:5,
+text:"Transformaron el salón completamente.",
+likes:13,
+dislikes:0
+}
+
+];
+
+function loadReview(){
+
+reviewsContainer.innerHTML = "";
+
+defaultReviews.forEach((r,index)=>{
+
+reviewsContainer.innerHTML += `
+
+<div class="review">
+
+<strong>${r.name}</strong>
+
+${"★".repeat(r.stars)}
+
+<br><br>
+
+${r.text}
+
+<div class="review-actions">
+
+<span onclick="likeReview(${index})">
+👍 ${r.likes}
+</span>
+
+<span onclick="dislikeReview(${index})">
+👎 ${r.dislikes}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+let text =
+localStorage.getItem("userReviewFloresLuna");
+
+let stars =
+localStorage.getItem("userStarsFloresLuna");
+
+if(text){
+
+reviewsContainer.innerHTML += `
+
+<div class="review">
+
+<strong>Tú</strong>
+
+${"★".repeat(stars)}
+
+<br><br>
+
+${text}
+
+</div>
+
+`;
+
+}
+
+}
+
+function likeReview(i){
+
+defaultReviews[i].likes++;
+
+loadReview();
+
+}
+
+function dislikeReview(i){
+
+defaultReviews[i].dislikes++;
+
+loadReview();
+
+}
+
+function openReviewModal(){
+
+reviewModal.style.display = "flex";
+
+reviewText.value =
+localStorage.getItem("userReviewFloresLuna") || "";
+
+selectedStars =
+localStorage.getItem("userStarsFloresLuna") || 0;
+
+renderStars();
+
+}
+
+function saveReview(){
+
+localStorage.setItem(
+"userReviewFloresLuna",
+reviewText.value
+);
+
+localStorage.setItem(
+"userStarsFloresLuna",
+selectedStars
+);
+
+reviewModal.style.display = "none";
+
+loadReview();
+
+}
+
+function openReportModal(){
+
+reportModal.style.display = "flex";
+
+}
+
+function submitReport(){
+
+let reason =
+document.getElementById("reportReason").value;
+
+if(!reason){
+
+alert("Selecciona un motivo");
+
+return;
+
+}
+
+alert("Reporte enviado correctamente ✨");
+
+reportModal.style.display = "none";
+
+}
+
+function openQuoteModal(){
+
+quoteModal.style.display = "flex";
+
+}
+
+function sendQuote(){
+
+alert("Solicitud enviada correctamente ✨");
+
+quoteModal.style.display = "none";
+
+}
+
+function openImage(src){
+
+document.getElementById("bigImage").src = src;
+
+document.getElementById("imageModal").style.display = "flex";
+
+}
+
+function closeImage(){
+
+document.getElementById("imageModal").style.display = "none";
+
+}
+
+loadReview();
+
+window.onclick = function(e){
+
+if(e.target===reviewModal){
+reviewModal.style.display="none";
+}
+
+if(e.target===reportModal){
+reportModal.style.display="none";
+}
+
+if(e.target===quoteModal){
+quoteModal.style.display="none";
+}
+
+if(e.target.id==="imageModal"){
+closeImage();
+}
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Evento - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:60px 25px 140px;
+overflow-x:hidden;
+background:linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 40%,#627782 100%);
+background-size:200% 200%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+padding:12px 20px;
+border-radius:40px;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(10px);
+text-decoration:none;
+color:#1A334A;
+transition:0.3s;
+z-index:100;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.back-btn:hover{
+background:#1A334A;
+color:white;
+transform:translateY(-2px);
+}
+
+/* VIDEO */
+
+.video-hero{
+position:relative;
+height:480px;
+border-radius:35px;
+overflow:hidden;
+margin-bottom:35px;
+box-shadow:0 25px 50px rgba(0,0,0,0.22);
+animation:fadeUp 0.8s ease;
+}
+
+.video-hero video{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(65%);
+}
+
+.video-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);
+}
+
+.video-hero h2{
+position:absolute;
+bottom:30px;
+left:30px;
+color:white;
+font-size:38px;
+max-width:600px;
+line-height:1.3;
+}
+
+/* STATS */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.stat-card{
+background:rgba(255,255,255,0.62);
+backdrop-filter:blur(12px);
+padding:28px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+animation:fadeUp 0.7s ease;
+}
+
+.stat-card h3{
+font-size:32px;
+margin-bottom:8px;
+}
+
+.stat-card p{
+opacity:0.75;
+}
+
+/* FORM */
+
+.form-container{
+max-width:850px;
+margin:auto;
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(12px);
+padding:35px;
+border-radius:40px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+margin-bottom:50px;
+animation:fadeUp 0.8s ease;
+}
+
+.form-title{
+font-size:42px;
+text-align:center;
+margin-bottom:35px;
+}
+
+.input-group{
+margin-bottom:20px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:10px;
+font-size:14px;
+font-weight:600;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:16px 18px;
+border-radius:25px;
+border:none;
+outline:none;
+font-family:'Bodoni Moda', serif;
+background:rgba(255,255,255,0.85);
+font-size:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+}
+
+.button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:40px;
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.35s;
+font-family:'Bodoni Moda', serif;
+margin-top:10px;
+}
+
+.button:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 25px rgba(0,0,0,0.18);
+}
+
+/* PREVIEW */
+
+.image-preview{
+width:100%;
+height:260px;
+border-radius:30px;
+overflow:hidden;
+display:none;
+margin-bottom:25px;
+box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+
+.image-preview img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* EVENTS */
+
+.events-list{
+margin-top:50px;
+}
+
+.section-title{
+font-size:34px;
+margin-bottom:25px;
+text-align:center;
+}
+
+.events-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:22px;
+}
+
+.event-card{
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:35px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.35s;
+animation:fadeUp 0.7s ease;
+}
+
+.event-card:hover{
+transform:translateY(-6px);
+}
+
+.badge{
+display:inline-block;
+padding:8px 16px;
+border-radius:30px;
+background:#1A334A;
+color:white;
+font-size:12px;
+margin-bottom:15px;
+}
+
+.event-card h3{
+margin-bottom:12px;
+font-size:28px;
+}
+
+.event-card p{
+margin-bottom:10px;
+line-height:1.6;
+}
+
+.countdown{
+margin-top:12px;
+padding:10px 16px;
+border-radius:25px;
+background:rgba(74,127,154,0.12);
+display:inline-block;
+font-size:13px;
+}
+
+.event-actions{
+display:flex;
+gap:10px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.small-btn{
+padding:10px 16px;
+border:none;
+border-radius:20px;
+color:white;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+transition:0.3s;
+}
+
+.small-btn:hover{
+transform:translateY(-2px);
+}
+
+.view-btn{
+background:#1A334A;
+}
+
+.edit-btn{
+background:#4a7f9a;
+}
+
+.delete-btn{
+background:#c94c4c;
+}
+
+/* CALENDAR */
+
+.calendar{
+margin-top:60px;
+background:rgba(255,255,255,0.62);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:35px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.calendar-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.calendar-grid{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:12px;
+}
+
+.day{
+padding:16px;
+border-radius:18px;
+background:white;
+text-align:center;
+font-size:14px;
+box-shadow:0 5px 12px rgba(0,0,0,0.05);
+}
+
+.day.event{
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+}
+
+/* TOAST */
+
+.toast{
+position:fixed;
+top:25px;
+right:25px;
+background:#1A334A;
+color:white;
+padding:16px 24px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+opacity:0;
+pointer-events:none;
+transition:0.4s;
+z-index:999;
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(10px);
+}
+
+/* NAVBAR IOS */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:700px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+padding:18px 20px;
+}
+
+.navbar a{
+transition:0.3s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.navbar a svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.video-hero{
+height:320px;
+}
+
+.video-hero h2{
+font-size:26px;
+left:20px;
+right:20px;
+}
+
+.form-title{
+font-size:34px;
+}
+
+.calendar-grid{
+grid-template-columns:repeat(4,1fr);
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="home-organizador.html" class="back-btn">
+← Regresar
+</a>
+
+<!-- HERO -->
+
+<div class="video-hero">
+
+<video autoplay muted loop>
+<source src="video-event.mp4" type="video/mp4">
+</video>
+
+<div class="video-overlay"></div>
+
+<h2>
+Porque tu comodidad,
+es nuestro placer...
+</h2>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h3 id="totalEvents">0</h3>
+<p>Eventos</p>
+</div>
+
+<div class="stat-card">
+<h3 id="nextEvent">--</h3>
+<p>Próximo evento</p>
+</div>
+
+<div class="stat-card">
+<h3 id="budgetTotal">$0</h3>
+<p>Presupuesto total</p>
+</div>
+
+</div>
+
+<!-- FORM -->
+
+<div class="form-container">
+
+<h1 class="form-title" id="tituloCrear">
+Crear Evento
+</h1>
+
+<div class="form-grid">
+
+<div class="input-group">
+<label>🎉 Nombre del evento</label>
+<input type="text" id="eventName" placeholder="Nombre del evento">
+</div>
+
+<div class="input-group">
+<label>✨ Tipo de evento</label>
+<select id="eventType">
+<option value="">Tipo de evento</option>
+<option>Boda</option>
+<option>Cumpleaños</option>
+<option>XV años</option>
+<option>Corporativo</option>
+<option>Otro</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>📅 Fecha</label>
+<input type="date" id="eventDate">
+</div>
+
+<div class="input-group">
+<label>⏰ Hora</label>
+<input type="time" id="eventTime">
+</div>
+
+<div class="input-group">
+<label>📍 Ciudad</label>
+<input type="text" id="eventLocation" placeholder="Ciudad">
+</div>
+
+<div class="input-group">
+<label>🏛 Lugar específico</label>
+<input type="text" id="eventPlace" placeholder="Lugar específico">
+</div>
+
+<div class="input-group">
+<label>💰 Presupuesto</label>
+<input type="text" id="eventBudget" placeholder="Presupuesto estimado">
+</div>
+
+<div class="input-group">
+<label>🖼 Imagen del evento</label>
+<input type="file" id="eventImage">
+</div>
+
+</div>
+
+<div class="image-preview" id="previewContainer">
+<img id="previewImage">
+</div>
+
+<div class="input-group">
+<label>📝 Descripción</label>
+<textarea id="eventDesc" placeholder="Descripción del evento"></textarea>
+</div>
+
+<button class="button" onclick="saveEvent()">
+Guardar Evento
+</button>
+
+</div>
+
+<!-- EVENTS -->
+
+<div class="events-list">
+
+<h2 class="section-title">
+Eventos Guardados
+</h2>
+
+<div class="events-grid" id="eventsContainer"></div>
+
+</div>
+
+<!-- CALENDAR -->
+
+<div class="calendar">
+
+<div class="calendar-top">
+<h2>Mayo 2026</h2>
+<p>Eventos resaltados</p>
+</div>
+
+<div class="calendar-grid" id="calendar"></div>
+
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- CREAR EVENTO -->
+
+<a href="create-event.html" title="Crear evento">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="8" x2="12" y2="16"/>
+<line x1="8" y1="12" x2="16" y2="12"/>
+</svg>
+
+</a>
+
+<!-- BUSCAR -->
+
+<a href="search-providers.html" title="Buscar proveedores">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<line x1="20" y1="20" x2="16.5" y2="16.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PRESUPUESTO -->
+
+<a href="Presupuesto.html" title="Presupuesto">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 7h18v10H3z"/>
+<path d="M16 12h2"/>
+<path d="M3 10h18"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-organizer.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+let events = JSON.parse(localStorage.getItem("events")) || [];
+let editIndex = null;
+
+function showToast(message){
+
+const toast = document.getElementById("toast");
+
+toast.textContent = message;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},3000);
+
+}
+
+function saveEvent(){
+
+const event = {
+name:eventName.value,
+type:eventType.value,
+date:eventDate.value,
+time:eventTime.value,
+location:eventLocation.value,
+place:eventPlace.value,
+budget:eventBudget.value,
+desc:eventDesc.value,
+image:previewImage.src || ""
+};
+
+if(!event.name || !event.date || !event.location || !event.type){
+return showToast("Completa los campos obligatorios ✨");
+}
+
+if(editIndex !== null){
+
+events[editIndex] = event;
+editIndex = null;
+
+}else{
+
+events.push(event);
+
+}
+
+localStorage.setItem("events", JSON.stringify(events));
+
+showToast("Evento guardado 🎉");
+
+clearForm();
+renderEvents();
+renderCalendar();
+updateStats();
+
+}
+
+function getCountdown(date){
+
+const diff = new Date(date) - new Date();
+
+if(diff <= 0) return "Evento finalizado";
+
+return "Faltan " + Math.floor(diff/(1000*60*60*24)) + " días";
+
+}
+
+function renderEvents(){
+
+eventsContainer.innerHTML = "";
+
+if(events.length === 0){
+
+eventsContainer.innerHTML = `
+
+<div class="event-card">
+
+<h3>Aún no tienes eventos ✨</h3>
+
+<p>
+Crea tu primer evento premium.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+events.forEach((ev,index)=>{
+
+eventsContainer.innerHTML += `
+
+<div class="event-card">
+
+${ev.image ? `
+<img src="${ev.image}"
+style="width:100%;height:220px;object-fit:cover;border-radius:25px;margin-bottom:18px;">
+` : ``}
+
+<span class="badge">${ev.type}</span>
+
+<h3>${ev.name}</h3>
+
+<p>
+📅 ${ev.date} ${ev.time || ""}
+</p>
+
+<p>
+📍 ${ev.location || ""} ${ev.place || ""}
+</p>
+
+<p>
+💰 ${ev.budget || "No definido"}
+</p>
+
+<div class="countdown">
+${getCountdown(ev.date)}
+</div>
+
+<div class="event-actions">
+
+<button class="small-btn view-btn"
+onclick="viewEvent(${index})">
+Ver
+</button>
+
+<button class="small-btn edit-btn"
+onclick="editEvent(${index})">
+Editar
+</button>
+
+<button class="small-btn delete-btn"
+onclick="deleteEvent(${index})">
+Eliminar
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function viewEvent(i){
+
+const e = events[i];
+
+showToast("Viendo evento: " + e.name + " ✨");
+
+}
+
+function editEvent(index){
+
+const ev = events[index];
+
+eventName.value = ev.name;
+eventType.value = ev.type;
+eventDate.value = ev.date;
+eventTime.value = ev.time;
+eventLocation.value = ev.location;
+eventPlace.value = ev.place;
+eventBudget.value = ev.budget;
+eventDesc.value = ev.desc;
+
+if(ev.image){
+previewImage.src = ev.image;
+previewContainer.style.display = "block";
+}
+
+editIndex = index;
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+showToast("Editando evento ✏️");
+
+}
+
+function deleteEvent(index){
+
+if(confirm("¿Eliminar evento?")){
+
+events.splice(index,1);
+
+localStorage.setItem("events", JSON.stringify(events));
+
+renderEvents();
+renderCalendar();
+updateStats();
+
+showToast("Evento eliminado 🗑️");
+
+}
+
+}
+
+function clearForm(){
+
+document.querySelectorAll("input, textarea, select")
+.forEach(el=>{
+if(el.type !== "file") el.value="";
+});
+
+previewContainer.style.display = "none";
+previewImage.src = "";
+
+}
+
+function renderCalendar(){
+
+calendar.innerHTML = "";
+
+for(let i=1;i<=31;i++){
+
+let day = document.createElement("div");
+
+day.classList.add("day");
+
+day.textContent = i;
+
+let formatted = String(i).padStart(2,'0');
+
+events.forEach(ev=>{
+
+if(ev.date && ev.date.split("-")[2] === formatted){
+day.classList.add("event");
+}
+
+});
+
+calendar.appendChild(day);
+
+}
+
+}
+
+function updateStats(){
+
+// TOTAL EVENTS
+
+document.getElementById("totalEvents")
+.textContent = events.length;
+
+// NEXT EVENT
+
+let upcoming = events
+.filter(ev=>new Date(ev.date) > new Date())
+.sort((a,b)=>new Date(a.date)-new Date(b.date));
+
+if(upcoming.length > 0){
+
+document.getElementById("nextEvent")
+.textContent = getCountdown(upcoming[0].date);
+
+}else{
+
+document.getElementById("nextEvent")
+.textContent = "Sin eventos";
+
+}
+
+// BUDGET
+
+let total = 0;
+
+events.forEach(ev=>{
+
+const num = parseInt(
+ev.budget.replace(/[^0-9]/g,'')) || 0;
+
+total += num;
+
+});
+
+document.getElementById("budgetTotal")
+.textContent = "$" + total.toLocaleString();
+
+}
+
+// IMAGE PREVIEW
+
+const imageInput = document.getElementById("eventImage");
+
+imageInput.addEventListener("change", function(){
+
+const file = this.files[0];
+
+if(file){
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+previewImage.src = e.target.result;
+previewContainer.style.display = "block";
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+});
+
+renderEvents();
+renderCalendar();
+updateStats();
+
+</script>
+
+</body>
+</html>

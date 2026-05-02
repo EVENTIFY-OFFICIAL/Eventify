@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mi Perfil - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+min-height:100vh;
+overflow-x:hidden;
+padding:100px 20px 130px;
+color:#1A334A;
+
+background:
+linear-gradient(rgba(234,242,245,0.88),rgba(234,242,245,0.88)),
+url("https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+position:relative;
+}
+
+/* BLURS */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:white;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* CONTAINER */
+
+.profile-container{
+max-width:950px;
+margin:auto;
+}
+
+/* HEADER */
+
+.profile-header{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:35px;
+padding:35px;
+display:flex;
+flex-wrap:wrap;
+gap:30px;
+align-items:center;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+margin-bottom:25px;
+position:relative;
+overflow:hidden;
+}
+
+.profile-avatar{
+position:relative;
+width:140px;
+height:140px;
+border-radius:50%;
+overflow:hidden;
+flex-shrink:0;
+background:#d6e2e8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:50px;
+color:#1A334A;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.profile-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:none;
+}
+
+.upload-btn{
+position:absolute;
+bottom:8px;
+right:8px;
+width:42px;
+height:42px;
+border:none;
+border-radius:50%;
+background:#1A334A;
+color:white;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 8px 18px rgba(0,0,0,0.18);
+transition:0.3s;
+}
+
+.upload-btn:hover{
+transform:scale(1.08);
+}
+
+.profile-main{
+flex:1;
+min-width:240px;
+}
+
+.profile-main h1{
+font-size:42px;
+margin-bottom:8px;
+}
+
+.profile-role{
+font-size:15px;
+opacity:0.7;
+margin-bottom:18px;
+}
+
+.profile-tags{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+}
+
+.tag{
+padding:10px 16px;
+border-radius:30px;
+background:rgba(255,255,255,0.8);
+font-size:13px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* EDIT BUTTON */
+
+.edit-btn{
+position:absolute;
+top:25px;
+right:25px;
+padding:12px 20px;
+border:none;
+border-radius:30px;
+background:#1A334A;
+color:white;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+font-size:14px;
+transition:0.3s;
+}
+
+.edit-btn:hover{
+transform:translateY(-2px);
+}
+
+/* GRID */
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:18px;
+margin-bottom:25px;
+}
+
+.info-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:28px;
+padding:22px;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+.info-card label{
+display:block;
+font-size:13px;
+opacity:0.65;
+margin-bottom:10px;
+}
+
+.info-card input,
+.info-card textarea,
+.info-card select{
+width:100%;
+border:none;
+outline:none;
+background:rgba(255,255,255,0.7);
+padding:14px 16px;
+border-radius:18px;
+font-family:'Bodoni Moda', serif;
+font-size:14px;
+color:#1A334A;
+resize:none;
+}
+
+.info-card textarea{
+min-height:110px;
+}
+
+.info-card input:disabled,
+.info-card textarea:disabled,
+.info-card select:disabled{
+opacity:0.7;
+cursor:not-allowed;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-bottom:25px;
+}
+
+.stat-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+padding:25px;
+border-radius:28px;
+text-align:center;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+.stat-card h2{
+font-size:34px;
+margin-bottom:6px;
+}
+
+.stat-card p{
+font-size:14px;
+opacity:0.7;
+}
+
+/* ACTIONS */
+
+.action-buttons{
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+}
+
+.action-btn{
+flex:1;
+min-width:220px;
+padding:18px;
+border:none;
+border-radius:28px;
+font-family:'Bodoni Moda', serif;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.primary-btn{
+background:#1A334A;
+color:white;
+}
+
+.secondary-btn{
+background:rgba(255,255,255,0.8);
+color:#1A334A;
+}
+
+.logout-btn{
+background:#c94c4c;
+color:white;
+}
+
+.action-btn:hover{
+transform:translateY(-3px);
+}
+
+/* NAVBAR IOS */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:700px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+padding:18px 20px;
+}
+
+.navbar a{
+transition:0.3s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.navbar a svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.profile-header{
+padding:28px;
+text-align:center;
+justify-content:center;
+}
+
+.profile-main h1{
+font-size:34px;
+}
+
+.edit-btn{
+position:relative;
+top:auto;
+right:auto;
+margin-top:10px;
+width:100%;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="home-organizador.html" class="back-btn">
+← Regresar
+</a>
+
+<div class="profile-container">
+
+<!-- PROFILE HEADER -->
+
+<div class="profile-header">
+
+<div class="profile-avatar">
+
+<span id="avatarLetter">O</span>
+
+<img id="profileImage">
+
+<button class="upload-btn"
+onclick="document.getElementById('fileInput').click()">
+
+📷
+
+</button>
+
+<input
+type="file"
+id="fileInput"
+accept="image/*"
+style="display:none;"
+>
+
+</div>
+
+<div class="profile-main">
+
+<h1 id="displayName">
+Organizador
+</h1>
+
+<div class="profile-role">
+Organizador de eventos premium ✨
+</div>
+
+<div class="profile-tags">
+
+<div class="tag">
+Eventos sociales
+</div>
+
+<div class="tag">
+Bodas
+</div>
+
+<div class="tag">
+Corporativos
+</div>
+
+</div>
+
+</div>
+
+<button class="edit-btn"
+onclick="toggleEdit()"
+id="editBtn">
+
+Editar perfil
+
+</button>
+
+</div>
+
+<!-- INFO GRID -->
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<label>Nombre completo</label>
+
+<input
+type="text"
+id="name"
+placeholder="Tu nombre completo"
+disabled
+>
+
+</div>
+
+<div class="info-card">
+
+<label>Correo electrónico</label>
+
+<input
+type="email"
+id="email"
+placeholder="correo@email.com"
+disabled
+>
+
+</div>
+
+<div class="info-card">
+
+<label>Teléfono</label>
+
+<input
+type="text"
+id="phone"
+placeholder="+52 55 0000 0000"
+disabled
+>
+
+</div>
+
+<div class="info-card">
+
+<label>Ciudad</label>
+
+<input
+type="text"
+id="city"
+placeholder="Ciudad"
+disabled
+>
+
+</div>
+
+<div class="info-card">
+
+<label>Tipo de eventos</label>
+
+<select id="eventType" disabled>
+
+<option value="">Selecciona una opción</option>
+
+<option>Bodas</option>
+
+<option>Eventos corporativos</option>
+
+<option>XV años</option>
+
+<option>Cumpleaños</option>
+
+<option>Eventos premium</option>
+
+<option>Todo tipo de eventos</option>
+
+</select>
+
+</div>
+
+<div class="info-card">
+
+<label>Presupuesto promedio</label>
+
+<input
+type="text"
+id="budget"
+placeholder="$80,000 MXN"
+disabled
+>
+
+</div>
+
+<div class="info-card" style="grid-column:1/-1;">
+
+<label>Sobre mí</label>
+
+<textarea
+id="about"
+placeholder="Cuéntanos sobre tu estilo de organización..."
+disabled
+></textarea>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat-card">
+<h2>12</h2>
+<p>Eventos activos</p>
+</div>
+
+<div class="stat-card">
+<h2>48</h2>
+<p>Proveedores guardados</p>
+</div>
+
+<div class="stat-card">
+<h2>9</h2>
+<p>Chats abiertos</p>
+</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="action-buttons">
+
+<button class="action-btn primary-btn"
+onclick="window.location.href='create-event.html'">
+
+Crear evento
+
+</button>
+
+<button class="action-btn secondary-btn"
+onclick="window.location.href='messages.html'">
+
+Ver mensajes
+
+</button>
+
+<button class="action-btn logout-btn"
+onclick="logout()">
+
+Cerrar sesión
+
+</button>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- CREAR EVENTO -->
+
+<a href="create-event.html" title="Crear evento">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="8" x2="12" y2="16"/>
+<line x1="8" y1="12" x2="16" y2="12"/>
+</svg>
+
+</a>
+
+<!-- BUSCAR -->
+
+<a href="search-providers.html" title="Buscar proveedores">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<line x1="20" y1="20" x2="16.5" y2="16.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PRESUPUESTO -->
+
+<a href="Presupuesto.html" title="Presupuesto">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 7h18v10H3z"/>
+<path d="M16 12h2"/>
+<path d="M3 10h18"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-organizer.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+/* USER */
+
+let user =
+JSON.parse(localStorage.getItem("user")) || {};
+
+/* INPUTS */
+
+const inputs = [
+"name",
+"email",
+"phone",
+"city",
+"eventType",
+"budget",
+"about"
+];
+
+/* LOAD DATA */
+
+inputs.forEach(id=>{
+
+if(user[id]){
+
+document.getElementById(id).value =
+user[id];
+
+}
+
+});
+
+/* DISPLAY NAME */
+
+if(user.name){
+
+document.getElementById("displayName")
+.textContent = user.name;
+
+document.getElementById("avatarLetter")
+.textContent =
+user.name.charAt(0).toUpperCase();
+
+}
+
+/* SAVE CHANGES */
+
+document.querySelectorAll("input,textarea,select")
+.forEach(input=>{
+
+input.addEventListener("input",()=>{
+
+user[input.id] = input.value;
+
+localStorage.setItem(
+"user",
+JSON.stringify(user)
+);
+
+if(input.id==="name"){
+
+document.getElementById("displayName")
+.textContent =
+input.value || "Organizador";
+
+document.getElementById("avatarLetter")
+.textContent =
+(input.value || "O")
+.charAt(0)
+.toUpperCase();
+
+}
+
+});
+
+});
+
+/* EDIT */
+
+let editing = false;
+
+function toggleEdit(){
+
+editing = !editing;
+
+document.querySelectorAll(
+"input,textarea,select"
+).forEach(el=>{
+
+el.disabled = !editing;
+
+});
+
+document.getElementById("editBtn")
+.textContent =
+editing
+? "Guardar cambios"
+: "Editar perfil";
+
+}
+
+/* PROFILE IMAGE */
+
+const profileImage =
+document.getElementById("profileImage");
+
+const avatarLetter =
+document.getElementById("avatarLetter");
+
+const savedImage =
+localStorage.getItem("profileImage");
+
+if(savedImage){
+
+profileImage.src = savedImage;
+
+profileImage.style.display = "block";
+
+avatarLetter.style.display = "none";
+
+}
+
+document.getElementById("fileInput")
+.addEventListener("change",function(){
+
+const file = this.files[0];
+
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+localStorage.setItem(
+"profileImage",
+e.target.result
+);
+
+profileImage.src = e.target.result;
+
+profileImage.style.display = "block";
+
+avatarLetter.style.display = "none";
+
+}
+
+reader.readAsDataURL(file);
+
+});
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("user");
+
+window.location.href = "login.html";
+
+}
+
+</script>
+
+</body>
+</html>

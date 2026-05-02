@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notificaciones - Proveedor | Eventify</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:70px 20px 120px;
+background:linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 40%,#627782 100%);
+}
+
+.back-btn{
+position:absolute;
+top:20px;
+left:20px;
+padding:10px 20px;
+border-radius:40px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(6px);
+text-decoration:none;
+color:#1A334A;
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.notifications-container{
+max-width:600px;
+margin:auto;
+}
+
+.notification{
+background:white;
+padding:18px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.notification.unread{
+border-left:6px solid #1A334A;
+background:#f3f9fc;
+}
+
+.notification small{
+display:block;
+margin-top:5px;
+color:#4a7f9a;
+font-size:12px;
+}
+
+.notification-actions{
+margin-top:10px;
+display:flex;
+gap:10px;
+}
+
+.small-btn{
+padding:6px 12px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-size:12px;
+color:white;
+}
+
+.read-btn{background:#4a7f9a;}
+.delete-btn{background:#c94c4c;}
+
+/* NAVBAR PROVEEDOR */
+.navbar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,0.1);
+}
+
+.navbar a{
+text-decoration:none;
+color:#1A334A;
+font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<a href="home-provedor.html" class="back-btn">← Regresar</a>
+
+<h1>Notificaciones</h1>
+
+<div class="notifications-container" id="notificationsContainer"></div>
+
+<div class="navbar">
+<a href="messages-provider.html">💬</a>
+<a href="reports-provedor.html">📊</a>
+<a href="profile-providor.html">👤</a>
+</div>
+
+<script>
+
+let notifications = JSON.parse(localStorage.getItem("provider_notifications")) || [];
+
+/* Agregar notificación sin duplicar */
+function addNotification(message){
+if(!notifications.some(n => n.message === message)){
+notifications.push({
+message: message,
+date: new Date().toLocaleString(),
+read:false
+});
+}
+}
+
+/* GENERAR NOTIFICACIONES SIMULADAS PARA PROVEEDOR */
+function generateProviderNotifications(){
+
+const clientes = ["María López","Carlos Ramírez","Ana Torres","Luis Mendoza"];
+const servicios = ["Boda en jardín","XV Años","Evento Corporativo","Cumpleaños"];
+
+clientes.forEach((cliente,i)=>{
+
+let servicio = servicios[i % servicios.length];
+
+if(Math.random() < 0.6){
+addNotification(`${cliente} solicitó cotización para "${servicio}".`);
+}
+
+if(Math.random() < 0.5){
+addNotification(`${cliente} confirmó tu servicio para "${servicio}".`);
+}
+
+if(Math.random() < 0.4){
+addNotification(`Recibiste un anticipo de ${cliente} para "${servicio}".`);
+}
+
+if(Math.random() < 0.3){
+addNotification(`${cliente} te envió un nuevo mensaje.`);
+}
+
+if(Math.random() < 0.3){
+addNotification(`${cliente} dejó una reseña de 5 estrellas ⭐.`);
+}
+
+if(Math.random() < 0.2){
+addNotification(`${cliente} canceló el servicio "${servicio}".`);
+}
+
+if(Math.random() < 0.2){
+addNotification(`Tienes un pago pendiente por confirmar de ${cliente}.`);
+}
+
+});
+
+localStorage.setItem("provider_notifications", JSON.stringify(notifications));
+}
+
+function renderNotifications(){
+
+notificationsContainer.innerHTML="";
+
+if(notifications.length === 0){
+notificationsContainer.innerHTML="<p>No tienes notificaciones.</p>";
+return;
+}
+
+notifications.slice().reverse().forEach((n,index)=>{
+
+let realIndex = notifications.length - 1 - index;
+
+notificationsContainer.innerHTML += `
+<div class="notification ${n.read ? '' : 'unread'}">
+<strong>${n.message}</strong>
+<small>${n.date}</small>
+<div class="notification-actions">
+${!n.read ? `<button class="small-btn read-btn" onclick="markAsRead(${realIndex})">Marcar como leída</button>` : ''}
+<button class="small-btn delete-btn" onclick="deleteNotification(${realIndex})">Eliminar</button>
+</div>
+</div>
+`;
+
+});
+
+}
+
+function markAsRead(index){
+notifications[index].read = true;
+localStorage.setItem("provider_notifications", JSON.stringify(notifications));
+renderNotifications();
+}
+
+function deleteNotification(index){
+notifications.splice(index,1);
+localStorage.setItem("provider_notifications", JSON.stringify(notifications));
+renderNotifications();
+}
+
+generateProviderNotifications();
+renderNotifications();
+
+</script>
+
+</body>
+</html>

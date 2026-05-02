@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preferencias - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:60px 20px;
+text-align:center;
+overflow-x:hidden;
+position:relative;
+}
+
+/* FONDO */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 40%,#627782 100%);
+z-index:-2;
+}
+
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:
+radial-gradient(circle at 20% 30%, rgba(30,83,110,0.08), transparent 60%),
+radial-gradient(circle at 80% 70%, rgba(93,186,194,0.25), transparent 60%);
+z-index:-1;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+}
+
+.logo img{
+max-width:200px;
+margin-bottom:40px;
+}
+
+h1{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.subtitle{
+margin-bottom:15px;
+opacity:0.8;
+}
+
+.counter{
+margin-bottom:40px;
+font-size:14px;
+transition:0.3s;
+}
+
+.counter.valid{
+color:#1e8f4d;
+font-weight:700;
+}
+
+.back-button{
+position:fixed;
+top:30px;
+left:40px;
+z-index:9999;
+padding:10px 20px;
+border-radius:50px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(6px);
+text-decoration:none;
+color:#1A334A;
+font-weight:600;
+transition:0.3s ease;
+}
+
+.back-button:hover{
+background:linear-gradient(135deg,#4a7f9ac5,#1A334A);
+color:white;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:25px;
+margin-top:20px;
+}
+
+.card{
+padding:20px;
+border-radius:25px;
+background:rgba(255,255,255,0.5);
+cursor:pointer;
+transition:0.3s ease;
+border:1px solid rgba(255,255,255,0.4);
+backdrop-filter:blur(8px);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.card img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:15px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+transform:translateY(-6px);
+background:linear-gradient(135deg,#4a7f9ac5,#1A334A);
+color:white;
+box-shadow:0 0 25px rgba(156,193,212,0.6);
+}
+
+.selected{
+background:linear-gradient(135deg,#1A334A,#4a7f9ac5);
+color:white;
+box-shadow:0 0 25px rgba(156,193,212,0.8);
+}
+
+.button{
+margin-top:60px;
+padding:18px 60px;
+border-radius:50px;
+border:none;
+font-size:16px;
+cursor:pointer;
+transition:0.3s ease;
+background:linear-gradient(135deg,#4a7f9ac5,#1A334A);
+color:white;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.button:disabled{
+opacity:0.5;
+cursor:not-allowed;
+}
+
+.button:not(:disabled):hover{
+transform:translateY(-3px);
+background:linear-gradient(135deg,#1A334A,#4a7f9ac5);
+}
+
+</style>
+</head>
+
+<body>
+
+<a class="back-button" href="register.html">← Regresar</a>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo-eventify.png" alt="Eventify Logo">
+</div>
+
+<h1>Selecciona tus gustos o preferencias</h1>
+<p class="subtitle">Elige mínimo 3 tipos de eventos que te interesen</p>
+<p class="counter" id="counter">0 seleccionados</p>
+
+<div class="grid">
+
+
+<!-- OPCIONES -->
+
+<div class="card"><img src="A.jpeg">Bodas</div>
+<div class="card"><img src="B.jpeg">Fiestas infantiles</div>
+<div class="card"><img src="C.jpeg">Eventos corporativos</div>
+<div class="card"><img src="D.jpeg">Conciertos</div>
+<div class="card"><img src="F.jpeg">Graduaciones</div>
+<div class="card"><img src="G.jpeg">Baby shower</div>
+<div class="card"><img src="H.jpeg">Desfiles</div>
+<div class="card"><img src="I.jpeg">Lanzamientos de marca</div>
+<div class="card"><img src="J.jpeg">Networking</div>
+<div class="card"><img src="K.jpeg">Eventos benéficos</div>
+<div class="card"><img src="L.jpeg">Exposiciones</div>
+<div class="card"><img src="M.jpeg">Talleres</div>
+<div class="card"><img src="N.jpeg">Eventos de lujo</div>
+<div class="card"><img src="Ñ.jpeg">Bautizos</div>
+<div class="card"><img src="O.jpeg">Fiestas patrias</div>
+<div class="card"><img src="P.jpeg">Halloween</div>
+<div class="card"><img src="Q.jpeg">Año Nuevo</div>
+<div class="card"><img src="R.jpeg">Eventos tecnológicos</div>
+<div class="card"><img src="S.jpeg">Ruedas de prensa</div>
+<div class="card"><img src="T.jpeg">Obras de teatro</div>
+<div class="card"><img src="U.jpeg">Firmas de libros</div>
+<div class="card"><img src="V.jpeg">Festivales gastronómicos</div>
+<div class="card"><img src="W.jpeg">Maratones</div>
+<div class="card"><img src="X.jpeg">Orquestas</div>
+<div class="card"><img src="Z.jpeg">Eventos pet friendly</div>
+</div>
+
+<button class="button" id="continueBtn" disabled>
+Continuar
+</button>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+/* 🔒 PROTEGER */
+if(localStorage.getItem("isLoggedIn") !== "true"){
+window.location.href = "login.html";
+return;
+}
+
+const savedUser = JSON.parse(localStorage.getItem("organizerUser"));
+if(!savedUser){
+window.location.href = "register.html";
+return;
+}
+
+if(localStorage.getItem("preferencesCompleted") === "true"){
+window.location.href = "home-organizer.html";
+return;
+}
+
+const cards = document.querySelectorAll(".card");
+const counter = document.getElementById("counter");
+const button = document.getElementById("continueBtn");
+
+cards.forEach(card => {
+card.addEventListener("click", function(){
+this.classList.toggle("selected");
+
+const selectedCount = document.querySelectorAll(".selected").length;
+counter.textContent = selectedCount + " seleccionados";
+
+if(selectedCount >= 3){
+button.disabled = false;
+counter.classList.add("valid");
+}else{
+button.disabled = true;
+counter.classList.remove("valid");
+}
+});
+});
+
+button.addEventListener("click", function(){
+
+const selected = document.querySelectorAll(".selected");
+const preferences = [];
+
+selected.forEach(card=>{
+preferences.push(card.textContent.trim());
+});
+
+localStorage.setItem("organizerPreferences", JSON.stringify(preferences));
+localStorage.setItem("preferencesCompleted", "true");
+
+window.location.href = "home-organizador.html";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pagos - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+min-height:100vh;
+padding:100px 20px 140px;
+color:#1A334A;
+overflow-x:hidden;
+
+background:
+linear-gradient(rgba(234,242,245,0.88),rgba(234,242,245,0.88)),
+url("https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* BLURS */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:white;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* CONTAINER */
+
+.payments-container{
+max-width:1100px;
+margin:auto;
+}
+
+/* HEADER */
+
+.payments-header{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:35px;
+padding:40px;
+margin-bottom:25px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.payments-header h1{
+font-size:42px;
+margin-bottom:12px;
+}
+
+.payments-header p{
+font-size:15px;
+opacity:0.72;
+line-height:1.7;
+}
+
+/* BALANCE */
+
+.balance-card{
+background:linear-gradient(135deg,#1A334A,#4a7f9a);
+color:white;
+padding:40px;
+border-radius:35px;
+margin-bottom:25px;
+box-shadow:0 18px 40px rgba(0,0,0,0.15);
+position:relative;
+overflow:hidden;
+}
+
+.balance-card::before{
+content:"";
+position:absolute;
+width:250px;
+height:250px;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+top:-120px;
+right:-80px;
+}
+
+.balance-label{
+font-size:16px;
+opacity:0.8;
+margin-bottom:12px;
+}
+
+.balance-amount{
+font-size:58px;
+font-weight:700;
+margin-bottom:14px;
+}
+
+.balance-info{
+display:flex;
+gap:25px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.balance-box{
+background:rgba(255,255,255,0.12);
+padding:14px 20px;
+border-radius:22px;
+backdrop-filter:blur(10px);
+}
+
+/* GRID */
+
+.payments-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+margin-bottom:25px;
+}
+
+/* CARDS */
+
+.payment-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:30px;
+padding:26px;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+.payment-card h2{
+margin-bottom:20px;
+font-size:24px;
+}
+
+/* PAYMENT METHODS */
+
+.card-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+border-radius:22px;
+background:rgba(255,255,255,0.72);
+margin-bottom:15px;
+gap:15px;
+}
+
+.card-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.card-icon{
+width:54px;
+height:54px;
+border-radius:18px;
+background:#1A334A;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+}
+
+.card-info h4{
+margin-bottom:4px;
+font-size:15px;
+}
+
+.card-info p{
+font-size:13px;
+opacity:0.65;
+}
+
+.default-badge{
+padding:8px 12px;
+border-radius:30px;
+background:#dce8ee;
+font-size:12px;
+}
+
+/* TRANSACTIONS */
+
+.transaction{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 0;
+border-bottom:1px solid rgba(26,51,74,0.08);
+gap:15px;
+}
+
+.transaction:last-child{
+border-bottom:none;
+padding-bottom:0;
+}
+
+.transaction-left{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.transaction-icon{
+width:48px;
+height:48px;
+border-radius:16px;
+background:#e8f0f4;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+}
+
+.transaction-info h4{
+font-size:15px;
+margin-bottom:4px;
+}
+
+.transaction-info p{
+font-size:13px;
+opacity:0.65;
+}
+
+.transaction-price{
+font-size:16px;
+font-weight:600;
+}
+
+.success{
+color:#2f8f5b;
+}
+
+.pending{
+color:#c58a18;
+}
+
+/* ACTIONS */
+
+.actions{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.action-btn{
+flex:1;
+min-width:220px;
+padding:18px;
+border:none;
+border-radius:28px;
+font-family:'Bodoni Moda', serif;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.primary-btn{
+background:#1A334A;
+color:white;
+}
+
+.secondary-btn{
+background:rgba(255,255,255,0.82);
+color:#1A334A;
+}
+
+.action-btn:hover{
+transform:translateY(-3px);
+}
+
+/* UPCOMING */
+
+.upcoming-box{
+margin-top:20px;
+padding:20px;
+border-radius:24px;
+background:rgba(74,127,154,0.08);
+}
+
+.upcoming-box h4{
+margin-bottom:8px;
+}
+
+/* NAVBAR IOS */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:700px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+padding:18px 20px;
+}
+
+.navbar a{
+transition:0.3s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.navbar a svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+.active-nav svg{
+stroke:#4a7f9a;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.payments-header{
+padding:30px;
+}
+
+.payments-header h1{
+font-size:34px;
+}
+
+.balance-amount{
+font-size:42px;
+}
+
+.actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="home-organizador.html" class="back-btn">
+← Regresar
+</a>
+
+<div class="payments-container">
+
+<!-- HEADER -->
+
+<div class="payments-header">
+
+<h1>
+Pagos
+</h1>
+
+<p>
+Gestiona tus pagos, depósitos y transacciones
+de todos tus eventos en un solo lugar.
+</p>
+
+</div>
+
+<!-- BALANCE -->
+
+<div class="balance-card">
+
+<div class="balance-label">
+Balance total disponible
+</div>
+
+<div class="balance-amount">
+$58,240
+</div>
+
+<p>
+Actualizado hace unos segundos
+</p>
+
+<div class="balance-info">
+
+<div class="balance-box">
+💳 3 métodos de pago
+</div>
+
+<div class="balance-box">
+📅 4 pagos pendientes
+</div>
+
+<div class="balance-box">
+✔ 12 pagos completados
+</div>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="payments-grid">
+
+<!-- METHODS -->
+
+<div class="payment-card">
+
+<h2>
+Métodos de pago
+</h2>
+
+<div class="card-item">
+
+<div class="card-left">
+
+<div class="card-icon">
+💳
+</div>
+
+<div class="card-info">
+<h4>Visa terminación 4821</h4>
+<p>Expira 08/28</p>
+</div>
+
+</div>
+
+<div class="default-badge">
+Principal
+</div>
+
+</div>
+
+<div class="card-item">
+
+<div class="card-left">
+
+<div class="card-icon">
+🏦
+</div>
+
+<div class="card-info">
+<h4>BBVA Cuenta bancaria</h4>
+<p>Transferencias SPEI</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="action-btn primary-btn"
+onclick="addCard()">
+
+Agregar método
+
+</button>
+
+</div>
+
+</div>
+
+<!-- TRANSACTIONS -->
+
+<div class="payment-card">
+
+<h2>
+Transacciones recientes
+</h2>
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+🎧
+</div>
+
+<div class="transaction-info">
+<h4>DJ Marco</h4>
+<p>Pago completado</p>
+</div>
+
+</div>
+
+<div class="transaction-price success">
+-$22,000
+</div>
+
+</div>
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+🌸
+</div>
+
+<div class="transaction-info">
+<h4>Flores de Luna</h4>
+<p>Anticipo enviado</p>
+</div>
+
+</div>
+
+<div class="transaction-price success">
+-$8,500
+</div>
+
+</div>
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+🏛
+</div>
+
+<div class="transaction-info">
+<h4>Hacienda Los Pinos</h4>
+<p>Pago pendiente</p>
+</div>
+
+</div>
+
+<div class="transaction-price pending">
+$18,000
+</div>
+
+</div>
+
+<div class="upcoming-box">
+
+<h4>
+Próximo pago programado
+</h4>
+
+<p style="opacity:0.7; line-height:1.7;">
+Catering premium · 18 de marzo · $12,000 MXN
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="actions">
+
+<button class="action-btn primary-btn"
+onclick="makePayment()">
+
+Realizar pago
+
+</button>
+
+<button class="action-btn secondary-btn"
+onclick="downloadReceipts()">
+
+Descargar recibos
+
+</button>
+
+<button class="action-btn secondary-btn"
+onclick="window.location.href='budget.html'">
+
+Ver presupuesto
+
+</button>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- CREAR EVENTO -->
+
+<a href="create-event.html" title="Crear evento">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="8" x2="12" y2="16"/>
+<line x1="8" y1="12" x2="16" y2="12"/>
+</svg>
+
+</a>
+
+<!-- BUSCAR -->
+
+<a href="search-providers.html" title="Buscar proveedores">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<line x1="20" y1="20" x2="16.5" y2="16.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PRESUPUESTO -->
+
+<a href="Presupuesto.html" title="Presupuesto">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 7h18v10H3z"/>
+<path d="M16 12h2"/>
+<path d="M3 10h18"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-organizer.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+function addCard(){
+
+alert("Próximamente podrás agregar tarjetas ✨");
+
+}
+
+function makePayment(){
+
+alert("Procesando pago...");
+
+}
+
+function downloadReceipts(){
+
+alert("Descargando recibos...");
+
+}
+
+</script>
+
+</body>
+</html>

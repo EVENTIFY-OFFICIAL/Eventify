@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil Proveedor - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:100px 20px 140px;
+overflow-x:hidden;
+
+background:
+linear-gradient(rgba(234,242,245,0.82),rgba(234,242,245,0.82)),
+url("https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+position:relative;
+}
+
+/* BLURS */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:white;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* CONTAINER */
+
+.profile-wrapper{
+max-width:1050px;
+margin:auto;
+}
+
+/* PROFILE HEADER */
+
+.profile-header{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:35px;
+padding:35px;
+display:flex;
+flex-wrap:wrap;
+gap:35px;
+align-items:center;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+margin-bottom:25px;
+position:relative;
+overflow:hidden;
+}
+
+/* AVATAR */
+
+.profile-container{
+position:relative;
+width:160px;
+height:160px;
+flex-shrink:0;
+}
+
+.profile-img{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+border:5px solid rgba(255,255,255,0.7);
+box-shadow:0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* VERIFIED BADGE */
+
+.verified-badge{
+position:absolute;
+bottom:10px;
+left:8px;
+background:#1A334A;
+color:white;
+padding:6px 12px;
+border-radius:20px;
+font-size:11px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* CAMERA BUTTON */
+
+.camera-btn{
+position:absolute;
+bottom:5px;
+right:5px;
+background:white;
+border-radius:50%;
+width:45px;
+height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.18);
+transition:0.25s;
+}
+
+.camera-btn:hover{
+transform:scale(1.08);
+}
+
+.camera-btn svg{
+width:20px;
+height:20px;
+stroke:#1A334A;
+}
+
+input[type="file"]{
+display:none;
+}
+
+/* INFO */
+
+.profile-info{
+flex:1;
+min-width:240px;
+}
+
+.profile-info h1{
+font-size:42px;
+margin-bottom:8px;
+}
+
+.provider-type{
+font-size:15px;
+opacity:0.7;
+margin-bottom:12px;
+}
+
+.rating{
+font-size:15px;
+margin-bottom:18px;
+color:#977a29;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-bottom:20px;
+}
+
+.tag{
+padding:10px 16px;
+border-radius:30px;
+background:rgba(255,255,255,0.85);
+font-size:13px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* STATS */
+
+.quick-stats{
+display:flex;
+flex-wrap:wrap;
+gap:18px;
+}
+
+.stat{
+background:rgba(255,255,255,0.8);
+padding:14px 20px;
+border-radius:22px;
+min-width:110px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.stat h3{
+font-size:22px;
+margin-bottom:5px;
+}
+
+.stat p{
+font-size:12px;
+opacity:0.7;
+}
+
+/* ACTIONS */
+
+.top-actions{
+position:absolute;
+top:25px;
+right:25px;
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.action-btn{
+padding:12px 18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+font-size:13px;
+transition:0.3s;
+}
+
+.primary-btn{
+background:#1A334A;
+color:white;
+}
+
+.secondary-btn{
+background:rgba(255,255,255,0.8);
+color:#1A334A;
+}
+
+.action-btn:hover{
+transform:translateY(-2px);
+}
+
+/* CARDS */
+
+.section-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:32px;
+padding:28px;
+margin-bottom:25px;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+.section-title{
+font-size:26px;
+margin-bottom:20px;
+}
+
+/* DESCRIPTION */
+
+.description{
+font-size:15px;
+line-height:1.9;
+opacity:0.9;
+}
+
+/* SERVICES */
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
+
+.service-card{
+padding:20px;
+border-radius:24px;
+background:rgba(255,255,255,0.8);
+}
+
+.service-card h3{
+margin-bottom:10px;
+font-size:18px;
+}
+
+.service-card p{
+font-size:14px;
+opacity:0.75;
+margin-bottom:10px;
+}
+
+.service-price{
+font-size:18px;
+font-weight:600;
+}
+
+/* PORTFOLIO */
+
+.portfolio{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.portfolio-item{
+position:relative;
+overflow:hidden;
+border-radius:24px;
+}
+
+.portfolio-item img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+transition:0.35s;
+}
+
+.portfolio-item:hover img{
+transform:scale(1.05);
+}
+
+.portfolio-overlay{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+padding:18px;
+background:linear-gradient(transparent,rgba(0,0,0,0.65));
+color:white;
+font-size:14px;
+}
+
+.delete-btn{
+position:absolute;
+top:12px;
+right:12px;
+background:rgba(255,255,255,0.9);
+border:none;
+border-radius:50%;
+width:36px;
+height:36px;
+cursor:pointer;
+font-size:16px;
+}
+
+.add-post{
+padding:25px;
+border-radius:24px;
+border:2px dashed #1A334A;
+background:transparent;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+font-size:15px;
+transition:0.3s;
+min-height:280px;
+}
+
+.add-post:hover{
+background:#1A334A;
+color:white;
+}
+
+/* REVIEWS */
+
+.review{
+background:rgba(255,255,255,0.82);
+padding:22px;
+border-radius:24px;
+margin-bottom:16px;
+}
+
+.review-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.review-name{
+font-weight:600;
+}
+
+.review-date{
+font-size:12px;
+opacity:0.6;
+}
+
+.review-text{
+font-size:14px;
+line-height:1.7;
+opacity:0.85;
+}
+
+.review-actions{
+margin-top:15px;
+display:flex;
+gap:18px;
+font-size:14px;
+}
+
+.review-actions span{
+cursor:pointer;
+user-select:none;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+padding:20px;
+}
+
+.modal-content{
+background:white;
+padding:28px;
+border-radius:30px;
+width:100%;
+max-width:450px;
+position:relative;
+}
+
+.modal-content h3{
+margin-bottom:18px;
+}
+
+.close-modal{
+position:absolute;
+top:18px;
+right:20px;
+font-size:20px;
+cursor:pointer;
+}
+
+textarea{
+width:100%;
+padding:15px;
+border-radius:18px;
+border:1px solid #d5dfe4;
+font-family:'Bodoni Moda', serif;
+resize:none;
+outline:none;
+}
+
+.save-btn{
+margin-top:18px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:24px;
+background:#1A334A;
+color:white;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:720px;
+background:rgba(255,255,255,0.6);
+border:1px solid rgba(255,255,255,0.45);
+backdrop-filter:blur(16px);
+display:flex;
+justify-content:space-around;
+padding:18px 20px;
+border-radius:35px;
+box-shadow:0 10px 35px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+}
+
+.navbar a{
+transition:0.35s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.06);
+}
+
+.navbar svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.35s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.profile-header{
+padding:28px;
+text-align:center;
+justify-content:center;
+}
+
+.profile-info h1{
+font-size:34px;
+}
+
+.top-actions{
+position:relative;
+top:auto;
+right:auto;
+width:100%;
+justify-content:center;
+margin-top:10px;
+}
+
+.quick-stats{
+justify-content:center;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="home-provedor.html" class="back-btn">
+← Regresar
+</a>
+
+<div class="profile-wrapper">
+
+<!-- PROFILE HEADER -->
+
+<div class="profile-header">
+
+<div class="profile-container">
+
+<img
+id="profileImage"
+class="profile-img"
+src="https://randomuser.me/api/portraits/men/32.jpg"
+>
+
+<div class="verified-badge">
+✔ Verificado
+</div>
+
+<div class="camera-btn"
+onclick="document.getElementById('imageInput').click()">
+
+<svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round"
+d="M3 7h4l2-2h6l2 2h4v12H3z"/>
+<circle cx="12" cy="13" r="3"/>
+</svg>
+
+</div>
+
+<input type="file" id="imageInput" accept="image/*">
+
+</div>
+
+<div class="profile-info">
+
+<h1>DJ Marco</h1>
+
+<div class="provider-type">
+DJ & Producción musical premium
+</div>
+
+<div class="rating">
+★★★★★ 4.9 · 129 reseñas
+</div>
+
+<div class="tags">
+
+<div class="tag">Bodas</div>
+<div class="tag">Eventos premium</div>
+<div class="tag">Iluminación</div>
+<div class="tag">After party</div>
+
+</div>
+
+<div class="quick-stats">
+
+<div class="stat">
+<h3>148</h3>
+<p>Eventos</p>
+</div>
+
+<div class="stat">
+<h3>98%</h3>
+<p>Satisfacción</p>
+</div>
+
+<div class="stat">
+<h3>8 años</h3>
+<p>Experiencia</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<button class="action-btn primary-btn"
+onclick="openDescModal()">
+
+Editar descripción
+
+</button>
+
+<button class="action-btn secondary-btn">
+Compartir perfil
+</button>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<div class="section-card">
+
+<h2 class="section-title">
+Sobre mí
+</h2>
+
+<div class="description" id="descriptionText">
+
+DJ profesional con más de 8 años de experiencia en bodas, eventos privados y experiencias premium. Especializado en crear ambientes elegantes y dinámicos mediante mezclas personalizadas, iluminación profesional y efectos visuales.
+
+</div>
+
+</div>
+
+<!-- SERVICES -->
+
+<div class="section-card">
+
+<h2 class="section-title">
+Servicios
+</h2>
+
+<div class="services-grid">
+
+<div class="service-card">
+<h3>DJ Set Premium</h3>
+<p>Audio profesional + mezclas personalizadas.</p>
+<div class="service-price">$8,000 MXN</div>
+</div>
+
+<div class="service-card">
+<h3>Iluminación</h3>
+<p>Luces ambientales y efectos especiales.</p>
+<div class="service-price">$5,500 MXN</div>
+</div>
+
+<div class="service-card">
+<h3>Producción completa</h3>
+<p>DJ + cabina + iluminación + audio.</p>
+<div class="service-price">$15,000 MXN</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- PORTFOLIO -->
+
+<div class="section-card">
+
+<h2 class="section-title">
+Portafolio
+</h2>
+
+<div class="portfolio" id="portfolioContainer"></div>
+
+<input
+type="file"
+id="portfolioInput"
+accept="image/*"
+multiple
+>
+
+</div>
+
+<!-- REVIEWS -->
+
+<div class="section-card">
+
+<h2 class="section-title">
+Reseñas
+</h2>
+
+<div id="reviewsContainer"></div>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="descModal">
+
+<div class="modal-content">
+
+<div class="close-modal"
+onclick="closeModal()">
+
+✕
+
+</div>
+
+<h3>Editar descripción</h3>
+
+<textarea
+id="descInput"
+rows="6"
+></textarea>
+
+<button
+class="save-btn"
+onclick="saveDescription()">
+
+Guardar cambios
+
+</button>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- HOME -->
+
+<a href="home-provedor.html" title="Inicio">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5L12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+</svg>
+
+</a>
+
+<!-- SOLICITUDES -->
+
+<a href="Solicitudes-provider.html" title="Solicitudes">
+
+<svg viewBox="0 0 24 24">
+<path d="M8 6h13"/>
+<path d="M8 12h13"/>
+<path d="M8 18h13"/>
+<circle cx="3" cy="6" r="1.5"/>
+<circle cx="3" cy="12" r="1.5"/>
+<circle cx="3" cy="18" r="1.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages-provider.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments-proveedor.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- CALENDARIO -->
+
+<a href="calendar-provider.html" title="Calendario">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="16" rx="2"/>
+<line x1="16" y1="3" x2="16" y2="7"/>
+<line x1="8" y1="3" x2="8" y2="7"/>
+<line x1="3" y1="11" x2="21" y2="11"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-providor.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes-proveedor.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+/* ELEMENTS */
+
+const profileImage =
+document.getElementById("profileImage");
+
+const imageInput =
+document.getElementById("imageInput");
+
+const portfolioInput =
+document.getElementById("portfolioInput");
+
+const portfolioContainer =
+document.getElementById("portfolioContainer");
+
+const reviewsContainer =
+document.getElementById("reviewsContainer");
+
+const descModal =
+document.getElementById("descModal");
+
+const descInput =
+document.getElementById("descInput");
+
+const descriptionText =
+document.getElementById("descriptionText");
+
+/* PROFILE IMAGE */
+
+if(localStorage.getItem("providerProfileImage")){
+
+profileImage.src =
+localStorage.getItem("providerProfileImage");
+
+}
+
+imageInput.onchange = function(){
+
+const file = this.files[0];
+
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = e => {
+
+profileImage.src = e.target.result;
+
+localStorage.setItem(
+"providerProfileImage",
+e.target.result
+);
+
+};
+
+reader.readAsDataURL(file);
+
+};
+
+/* DESCRIPTION */
+
+if(localStorage.getItem("providerDescription")){
+
+descriptionText.innerText =
+localStorage.getItem("providerDescription");
+
+}
+
+function openDescModal(){
+
+descModal.style.display = "flex";
+
+descInput.value =
+descriptionText.innerText;
+
+}
+
+function closeModal(){
+
+descModal.style.display = "none";
+
+}
+
+function saveDescription(){
+
+descriptionText.innerText =
+descInput.value;
+
+localStorage.setItem(
+"providerDescription",
+descInput.value
+);
+
+closeModal();
+
+}
+
+/* PORTFOLIO */
+
+let portfolioImages =
+JSON.parse(localStorage.getItem("providerPortfolio")) || [
+
+"https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
+
+"https://images.unsplash.com/photo-1519677100203-a0e668c92439",
+
+"https://images.unsplash.com/photo-1506157786151-b8491531f063",
+
+"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3"
+
+];
+
+function renderPortfolio(){
+
+portfolioContainer.innerHTML = "";
+
+portfolioImages.forEach((img,index)=>{
+
+portfolioContainer.innerHTML += `
+
+<div class="portfolio-item">
+
+<img src="${img}">
+
+<button
+class="delete-btn"
+onclick="removeImage(${index})">
+
+✕
+
+</button>
+
+<div class="portfolio-overlay">
+Evento premium · Eventify
+</div>
+
+</div>
+
+`;
+
+});
+
+portfolioContainer.innerHTML += `
+
+<button
+class="add-post"
+onclick="portfolioInput.click()">
+
+➕ Añadir nueva publicación
+
+</button>
+
+`;
+
+}
+
+portfolioInput.onchange = function(){
+
+Array.from(this.files).forEach(file=>{
+
+const reader = new FileReader();
+
+reader.onload = e => {
+
+portfolioImages.push(e.target.result);
+
+localStorage.setItem(
+"providerPortfolio",
+JSON.stringify(portfolioImages)
+);
+
+renderPortfolio();
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+};
+
+function removeImage(index){
+
+if(confirm("¿Eliminar esta publicación?")){
+
+portfolioImages.splice(index,1);
+
+localStorage.setItem(
+"providerPortfolio",
+JSON.stringify(portfolioImages)
+);
+
+renderPortfolio();
+
+}
+
+}
+
+/* REVIEWS */
+
+let reviews =
+JSON.parse(localStorage.getItem("providerReviews")) || [
+
+{
+name:"Ana López",
+stars:5,
+text:"Increíble ambiente y súper profesional.",
+likes:12,
+dislikes:1,
+date:"Hace 3 días"
+},
+
+{
+name:"Carlos Méndez",
+stars:4,
+text:"Excelente iluminación y atención.",
+likes:8,
+dislikes:0,
+date:"Hace 1 semana"
+},
+
+{
+name:"Sofía Torres",
+stars:5,
+text:"Animó toda la boda. Lo contrataría otra vez.",
+likes:16,
+dislikes:0,
+date:"Hace 2 semanas"
+}
+
+];
+
+function renderReviews(){
+
+reviewsContainer.innerHTML = "";
+
+reviews.forEach((r,index)=>{
+
+reviewsContainer.innerHTML += `
+
+<div class="review">
+
+<div class="review-top">
+
+<div>
+
+<div class="review-name">
+${r.name}
+</div>
+
+<div>
+${"★".repeat(r.stars)}
+</div>
+
+</div>
+
+<div class="review-date">
+${r.date}
+</div>
+
+</div>
+
+<div class="review-text">
+${r.text}
+</div>
+
+<div class="review-actions">
+
+<span onclick="likeReview(${index})">
+👍 ${r.likes}
+</span>
+
+<span onclick="dislikeReview(${index})">
+👎 ${r.dislikes}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function likeReview(i){
+
+reviews[i].likes++;
+
+localStorage.setItem(
+"providerReviews",
+JSON.stringify(reviews)
+);
+
+renderReviews();
+
+}
+
+function dislikeReview(i){
+
+reviews[i].dislikes++;
+
+localStorage.setItem(
+"providerReviews",
+JSON.stringify(reviews)
+);
+
+renderReviews();
+
+}
+
+renderPortfolio();
+renderReviews();
+
+/* CLOSE MODAL */
+
+window.onclick = function(e){
+
+if(e.target === descModal){
+
+closeModal();
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

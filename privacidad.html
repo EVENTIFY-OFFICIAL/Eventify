@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Privacidad - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:110px 20px 140px;
+overflow-x:hidden;
+background:
+linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 45%,#627782 100%);
+position:relative;
+}
+
+/* BACKGROUND */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:#ffffff;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* PROGRESS BAR */
+
+.progress-bar{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+width:0%;
+background:linear-gradient(90deg,#4a7f9a,#1A334A);
+z-index:9999;
+}
+
+/* BACK BUTTON */
+
+.back{
+position:fixed;
+top:25px;
+left:25px;
+padding:12px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(10px);
+text-decoration:none;
+color:#1A334A;
+font-weight:600;
+transition:0.3s;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+z-index:100;
+}
+
+.back:hover{
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+max-width:1000px;
+margin:0 auto 40px;
+text-align:center;
+}
+
+.hero h1{
+font-size:54px;
+margin-bottom:14px;
+font-weight:700;
+}
+
+.hero p{
+max-width:760px;
+margin:auto;
+line-height:1.8;
+font-size:16px;
+opacity:0.85;
+}
+
+.last-update{
+display:inline-block;
+margin-top:18px;
+padding:10px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(10px);
+font-size:13px;
+}
+
+/* QUICK INFO */
+
+.quick-info{
+max-width:1200px;
+margin:0 auto 35px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+}
+
+.quick-card{
+background:rgba(255,255,255,0.35);
+backdrop-filter:blur(18px);
+padding:24px;
+border-radius:28px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.quick-card:hover{
+transform:translateY(-4px);
+}
+
+.quick-card h3{
+margin-bottom:10px;
+font-size:20px;
+}
+
+.quick-card p{
+font-size:14px;
+line-height:1.8;
+opacity:0.85;
+}
+
+/* LAYOUT */
+
+.layout{
+max-width:1300px;
+margin:auto;
+display:grid;
+grid-template-columns:280px 1fr;
+gap:30px;
+align-items:start;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:sticky;
+top:100px;
+background:rgba(255,255,255,0.35);
+backdrop-filter:blur(18px);
+padding:25px;
+border-radius:30px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+.sidebar h3{
+margin-bottom:18px;
+font-size:20px;
+}
+
+.sidebar a{
+display:block;
+text-decoration:none;
+color:#1A334A;
+padding:12px 0;
+font-size:14px;
+transition:0.3s;
+border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+.sidebar a:hover{
+padding-left:8px;
+color:#4a7f9a;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+background:rgba(255,255,255,0.38);
+backdrop-filter:blur(20px);
+padding:35px;
+border-radius:35px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* POLICY CARDS */
+
+.policy-card{
+background:rgba(255,255,255,0.72);
+padding:28px;
+border-radius:28px;
+margin-bottom:24px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+animation:fadeUp .6s ease;
+transition:0.3s;
+}
+
+.policy-card:hover{
+transform:translateY(-4px);
+}
+
+.policy-card h2{
+margin-bottom:18px;
+font-size:26px;
+position:relative;
+padding-bottom:10px;
+}
+
+.policy-card h2::after{
+content:"";
+position:absolute;
+left:0;
+bottom:0;
+width:70px;
+height:3px;
+border-radius:10px;
+background:linear-gradient(90deg,#4a7f9a,#1A334A);
+}
+
+.policy-card p{
+line-height:1.95;
+font-size:15px;
+opacity:0.9;
+margin-bottom:12px;
+}
+
+/* LISTS */
+
+.policy-card ul{
+padding-left:20px;
+margin-top:12px;
+}
+
+.policy-card li{
+margin-bottom:12px;
+line-height:1.8;
+}
+
+/* RIGHTS BOX */
+
+.rights-box{
+margin-top:18px;
+padding:20px;
+border-radius:24px;
+background:rgba(74,127,154,0.08);
+border-left:5px solid #1A334A;
+}
+
+/* SECURITY BOX */
+
+.security-box{
+margin-top:18px;
+padding:20px;
+border-radius:24px;
+background:rgba(90,160,120,0.08);
+border-left:5px solid #3d7b57;
+}
+
+/* ACCEPT BOX */
+
+.accept-box{
+margin-top:40px;
+padding:24px;
+border-radius:25px;
+text-align:center;
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.accept-box button{
+margin-top:18px;
+padding:14px 24px;
+border:none;
+border-radius:30px;
+background:white;
+color:#1A334A;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+transition:0.3s;
+}
+
+.accept-box button:hover{
+transform:translateY(-2px);
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:40px;
+text-align:center;
+font-size:13px;
+opacity:0.7;
+}
+
+/* TOP BUTTON */
+
+.top-btn{
+position:fixed;
+right:25px;
+bottom:100px;
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:#1A334A;
+color:white;
+font-size:20px;
+cursor:pointer;
+display:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+transition:0.3s;
+z-index:99;
+}
+
+.top-btn:hover{
+transform:translateY(-4px);
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,0.1);
+z-index:100;
+}
+
+.navbar a{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.navbar a svg{
+stroke:#1A334A;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+transform:translateY(-2px) scale(1.08);
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.layout{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+position:relative;
+top:0;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.container{
+padding:24px;
+}
+
+.policy-card{
+padding:22px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="login.html" class="back">
+← Regresar
+</a>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>Política de Privacidad</h1>
+
+<p>
+En Eventify protegemos tu información personal
+y garantizamos una experiencia segura,
+transparente y confiable dentro de la plataforma.
+</p>
+
+<div class="last-update">
+Actualizado • Enero 2026
+</div>
+
+</div>
+
+<!-- QUICK INFO -->
+
+<div class="quick-info">
+
+<div class="quick-card">
+<h3>🔒 Seguridad</h3>
+<p>
+Protegemos tus datos con medidas de seguridad
+y acceso restringido.
+</p>
+</div>
+
+<div class="quick-card">
+<h3>👤 Privacidad</h3>
+<p>
+Tu información nunca será vendida
+a terceros externos.
+</p>
+</div>
+
+<div class="quick-card">
+<h3>⚙️ Transparencia</h3>
+<p>
+Puedes consultar, modificar o solicitar
+la eliminación de tus datos.
+</p>
+</div>
+
+</div>
+
+<!-- LAYOUT -->
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Contenido</h3>
+
+<a href="#info">1. Información</a>
+<a href="#uso">2. Uso de datos</a>
+<a href="#proteccion">3. Protección</a>
+<a href="#comparticion">4. Compartición</a>
+<a href="#cookies">5. Cookies</a>
+<a href="#derechos">6. Derechos</a>
+<a href="#retencion">7. Retención</a>
+<a href="#cambios">8. Cambios</a>
+<a href="#contacto">9. Contacto</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="container">
+
+<div class="policy-card" id="info">
+
+<h2>📘 1. Información que recopilamos</h2>
+
+<p>
+Podemos recopilar cierta información
+para ofrecer una experiencia personalizada
+y segura dentro de Eventify.
+</p>
+
+<ul>
+<li>Nombre completo</li>
+<li>Correo electrónico</li>
+<li>Contraseña</li>
+<li>Información de eventos</li>
+<li>Preferencias de usuario</li>
+<li>Mensajes dentro de la plataforma</li>
+</ul>
+
+</div>
+
+<div class="policy-card" id="uso">
+
+<h2>⚙️ 2. Uso de la información</h2>
+
+<p>
+La información recopilada se utiliza para:
+</p>
+
+<ul>
+<li>Crear y gestionar tu cuenta</li>
+<li>Facilitar conexiones entre usuarios y proveedores</li>
+<li>Mejorar la experiencia de navegación</li>
+<li>Enviar notificaciones relevantes</li>
+<li>Optimizar funcionalidades y seguridad</li>
+</ul>
+
+</div>
+
+<div class="policy-card" id="proteccion">
+
+<h2>🛡️ 3. Protección de datos</h2>
+
+<p>
+Implementamos medidas de seguridad
+para proteger tu información contra accesos
+no autorizados, pérdida o alteración.
+</p>
+
+<div class="security-box">
+
+Tus datos se almacenan bajo procesos
+de protección y monitoreo continuo
+para mantener la seguridad de la plataforma.
+
+</div>
+
+</div>
+
+<div class="policy-card" id="comparticion">
+
+<h2>🤝 4. Compartición de información</h2>
+
+<p>
+No vendemos ni compartimos tu información personal
+con terceros, excepto cuando sea necesario
+para el funcionamiento de la plataforma
+o por requerimientos legales.
+</p>
+
+</div>
+
+<div class="policy-card" id="cookies">
+
+<h2>🍪 5. Uso de cookies</h2>
+
+<p>
+Eventify puede utilizar cookies
+para mejorar la experiencia del usuario,
+recordar preferencias y analizar
+el uso de la plataforma.
+</p>
+
+</div>
+
+<div class="policy-card" id="derechos">
+
+<h2>👤 6. Derechos del usuario</h2>
+
+<p>
+Como usuario, tienes derecho a:
+</p>
+
+<div class="rights-box">
+
+<ul>
+<li>Acceder a tus datos personales</li>
+<li>Rectificar información incorrecta</li>
+<li>Solicitar eliminación de datos</li>
+<li>Limitar el uso de tu información</li>
+<li>Consultar cómo se utilizan tus datos</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="policy-card" id="retencion">
+
+<h2>📦 7. Retención de datos</h2>
+
+<p>
+Conservamos tu información únicamente
+durante el tiempo necesario para cumplir
+con los fines descritos en esta política.
+</p>
+
+</div>
+
+<div class="policy-card" id="cambios">
+
+<h2>🔄 8. Cambios en la política</h2>
+
+<p>
+Eventify puede actualizar esta política
+en cualquier momento.
+</p>
+
+<p>
+Te recomendamos revisar periódicamente
+esta sección para mantenerte informado.
+</p>
+
+</div>
+
+<div class="policy-card" id="contacto">
+
+<h2>📩 9. Contacto</h2>
+
+<p>
+Si tienes dudas relacionadas con privacidad,
+seguridad o protección de datos,
+puedes comunicarte con nosotros
+a través de la plataforma.
+</p>
+
+</div>
+
+<!-- ACCEPT -->
+
+<div class="accept-box">
+
+<h3>✓ Confirmación</h3>
+
+<p>
+Al utilizar Eventify,
+aceptas esta Política de Privacidad
+y el tratamiento de datos descrito.
+</p>
+
+<button onclick="acceptPrivacy()">
+Aceptar política
+</button>
+
+</div>
+
+<div class="footer">
+
+© 2026 Eventify • Política de Privacidad
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TOP BUTTON -->
+
+<button class="top-btn" id="topBtn">
+↑
+</button>
+
+<script>
+
+/* PROGRESS BAR */
+
+window.addEventListener("scroll",()=>{
+
+const scrollTop =
+document.documentElement.scrollTop;
+
+const scrollHeight =
+document.documentElement.scrollHeight -
+document.documentElement.clientHeight;
+
+const progress =
+(scrollTop / scrollHeight) * 100;
+
+document.getElementById("progressBar")
+.style.width = progress + "%";
+
+/* TOP BUTTON */
+
+if(scrollTop > 400){
+
+document.getElementById("topBtn")
+.style.display = "block";
+
+}else{
+
+document.getElementById("topBtn")
+.style.display = "none";
+
+}
+
+});
+
+/* TOP BUTTON */
+
+document.getElementById("topBtn")
+.addEventListener("click",()=>{
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+});
+
+/* ACCEPT */
+
+function acceptPrivacy(){
+
+alert("Has aceptado la política de privacidad ✨");
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pagos - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+min-height:100vh;
+padding:100px 20px 140px;
+color:#1A334A;
+
+background:
+linear-gradient(rgba(234,242,245,0.88),rgba(234,242,245,0.88)),
+url("https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+overflow-x:hidden;
+}
+
+/* BLURS */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:white;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* CONTAINER */
+
+.payments-container{
+max-width:1100px;
+margin:auto;
+}
+
+/* HEADER */
+
+.payments-header{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:35px;
+padding:45px;
+margin-bottom:25px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.payments-header h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.payments-header p{
+font-size:15px;
+opacity:0.7;
+line-height:1.7;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:25px;
+}
+
+.stat-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:30px;
+padding:28px;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+.stat-card h3{
+font-size:14px;
+opacity:0.7;
+margin-bottom:12px;
+}
+
+.stat-number{
+font-size:32px;
+font-weight:600;
+}
+
+.stat-extra{
+margin-top:8px;
+font-size:13px;
+opacity:0.65;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1.2fr 0.8fr;
+gap:20px;
+margin-bottom:25px;
+}
+
+@media(max-width:950px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
+/* CARDS */
+
+.card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:30px;
+padding:28px;
+box-shadow:0 12px 30px rgba(0,0,0,0.07);
+}
+
+/* TABLE */
+
+.table{
+display:flex;
+flex-direction:column;
+gap:18px;
+margin-top:20px;
+}
+
+.payment-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,0.7);
+}
+
+.payment-left h3{
+font-size:16px;
+margin-bottom:6px;
+}
+
+.payment-left p{
+font-size:13px;
+opacity:0.7;
+line-height:1.5;
+}
+
+.payment-right{
+text-align:right;
+}
+
+.amount{
+font-size:18px;
+font-weight:600;
+margin-bottom:8px;
+}
+
+.status{
+display:inline-block;
+padding:8px 14px;
+border-radius:30px;
+font-size:12px;
+}
+
+.completed{
+background:#dff3e5;
+color:#26734d;
+}
+
+.pending{
+background:#fff2d8;
+color:#9b6b00;
+}
+
+.processing{
+background:#ddefff;
+color:#205d96;
+}
+
+/* BALANCE */
+
+.balance-card{
+background:linear-gradient(135deg,#1A334A,#4a7f9a);
+color:white;
+position:relative;
+overflow:hidden;
+}
+
+.balance-card::before{
+content:"";
+position:absolute;
+top:-60px;
+right:-60px;
+width:180px;
+height:180px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+}
+
+.balance-content{
+position:relative;
+z-index:2;
+}
+
+.balance-label{
+font-size:14px;
+opacity:0.8;
+margin-bottom:10px;
+}
+
+.balance-amount{
+font-size:42px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.withdraw-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:24px;
+background:white;
+color:#1A334A;
+font-family:'Bodoni Moda', serif;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.withdraw-btn:hover{
+transform:translateY(-3px);
+}
+
+/* METHODS */
+
+.methods{
+display:flex;
+flex-direction:column;
+gap:15px;
+margin-top:20px;
+}
+
+.method{
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,0.7);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.method-info h3{
+font-size:15px;
+margin-bottom:5px;
+}
+
+.method-info p{
+font-size:13px;
+opacity:0.65;
+}
+
+.method-btn{
+padding:10px 16px;
+border:none;
+border-radius:18px;
+background:#1A334A;
+color:white;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+}
+
+/* CHART */
+
+.chart{
+margin-top:25px;
+}
+
+.chart-bar{
+margin-bottom:18px;
+}
+
+.chart-bar p{
+font-size:14px;
+margin-bottom:8px;
+}
+
+.bar{
+width:100%;
+height:14px;
+border-radius:30px;
+background:#dce6eb;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+border-radius:30px;
+background:linear-gradient(90deg,#4a7f9a,#1A334A);
+}
+
+/* ACTIONS */
+
+.actions{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.action-btn{
+flex:1;
+min-width:200px;
+padding:16px;
+border:none;
+border-radius:24px;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+transition:0.3s;
+}
+
+.primary{
+background:#1A334A;
+color:white;
+}
+
+.secondary{
+background:white;
+color:#1A334A;
+}
+
+.action-btn:hover{
+transform:translateY(-3px);
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:720px;
+background:rgba(255,255,255,0.6);
+border:1px solid rgba(255,255,255,0.45);
+backdrop-filter:blur(16px);
+display:flex;
+justify-content:space-around;
+padding:18px 20px;
+border-radius:35px;
+box-shadow:0 10px 35px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+}
+
+.navbar a{
+transition:0.35s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.06);
+}
+
+.navbar svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.35s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="home-provedor.html" class="back-btn">
+← Regresar
+</a>
+
+<div class="payments-container">
+
+<!-- HEADER -->
+
+<div class="payments-header">
+
+<h1>Pagos</h1>
+
+<p>
+Gestiona tus ingresos, retiros y pagos pendientes
+de tus eventos y servicios dentro de Eventify.
+</p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat-card">
+<h3>Ingresos del mes</h3>
+<div class="stat-number">$48,500</div>
+<div class="stat-extra">+12% este mes</div>
+</div>
+
+<div class="stat-card">
+<h3>Pagos pendientes</h3>
+<div class="stat-number">$14,200</div>
+<div class="stat-extra">3 organizadores</div>
+</div>
+
+<div class="stat-card">
+<h3>Servicios completados</h3>
+<div class="stat-number">18</div>
+<div class="stat-extra">Últimos 30 días</div>
+</div>
+
+<div class="stat-card">
+<h3>Próximo depósito</h3>
+<div class="stat-number">24 Mayo</div>
+<div class="stat-extra">Transferencia programada</div>
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- HISTORIAL -->
+
+<div class="card">
+
+<h2>
+Historial de pagos
+</h2>
+
+<div class="table">
+
+<div class="payment-row">
+
+<div class="payment-left">
+<h3>Boda · Hacienda San Carlos</h3>
+<p>Pagado por: María González · 18 mayo 2026</p>
+</div>
+
+<div class="payment-right">
+<div class="amount">$12,500</div>
+<div class="status completed">Completado</div>
+</div>
+
+</div>
+
+<div class="payment-row">
+
+<div class="payment-left">
+<h3>Evento corporativo · Tesla</h3>
+<p>Pago parcial recibido · 20 mayo 2026</p>
+</div>
+
+<div class="payment-right">
+<div class="amount">$7,000</div>
+<div class="status processing">Procesando</div>
+</div>
+
+</div>
+
+<div class="payment-row">
+
+<div class="payment-left">
+<h3>XV Años · Sofía Ramírez</h3>
+<p>Pago pendiente · vence mañana</p>
+</div>
+
+<div class="payment-right">
+<div class="amount">$14,200</div>
+<div class="status pending">Pendiente</div>
+</div>
+
+</div>
+
+<div class="payment-row">
+
+<div class="payment-left">
+<h3>Pasarela Anáhuac</h3>
+<p>Pagado por: Universidad Anáhuac</p>
+</div>
+
+<div class="payment-right">
+<div class="amount">$9,800</div>
+<div class="status completed">Completado</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="action-btn primary"
+onclick="downloadReport()">
+
+Descargar reporte
+
+</button>
+
+<button class="action-btn secondary"
+onclick="exportInvoices()">
+
+Exportar facturas
+
+</button>
+
+</div>
+
+</div>
+
+<!-- BALANCE -->
+
+<div style="display:flex; flex-direction:column; gap:20px;">
+
+<div class="card balance-card">
+
+<div class="balance-content">
+
+<div class="balance-label">
+Balance disponible
+</div>
+
+<div class="balance-amount">
+$21,350
+</div>
+
+<button class="withdraw-btn"
+onclick="withdrawFunds()">
+
+Retirar fondos
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MÉTODOS -->
+
+<div class="card">
+
+<h2>
+Métodos de pago
+</h2>
+
+<div class="methods">
+
+<div class="method">
+
+<div class="method-info">
+<h3>Cuenta bancaria</h3>
+<p>•••• 2847 · BBVA</p>
+</div>
+
+<button class="method-btn">
+Editar
+</button>
+
+</div>
+
+<div class="method">
+
+<div class="method-info">
+<h3>Tarjeta secundaria</h3>
+<p>•••• 9312 · Mastercard</p>
+</div>
+
+<button class="method-btn">
+Editar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- INGRESOS -->
+
+<div class="card">
+
+<h2>
+Ingresos mensuales
+</h2>
+
+<div class="chart">
+
+<div class="chart-bar">
+<p>Enero · $18,000</p>
+<div class="bar">
+<div class="fill" style="width:45%"></div>
+</div>
+</div>
+
+<div class="chart-bar">
+<p>Febrero · $26,500</p>
+<div class="bar">
+<div class="fill" style="width:65%"></div>
+</div>
+</div>
+
+<div class="chart-bar">
+<p>Marzo · $41,000</p>
+<div class="bar">
+<div class="fill" style="width:85%"></div>
+</div>
+</div>
+
+<div class="chart-bar">
+<p>Abril · $48,500</p>
+<div class="bar">
+<div class="fill" style="width:100%"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- HOME -->
+
+<a href="home-provedor.html" title="Inicio">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5L12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+</svg>
+
+</a>
+
+<!-- SOLICITUDES -->
+
+<a href="Solicitudes-provider.html" title="Solicitudes">
+
+<svg viewBox="0 0 24 24">
+<path d="M8 6h13"/>
+<path d="M8 12h13"/>
+<path d="M8 18h13"/>
+<circle cx="3" cy="6" r="1.5"/>
+<circle cx="3" cy="12" r="1.5"/>
+<circle cx="3" cy="18" r="1.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages-provider.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments-proveedor.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- CALENDARIO -->
+
+<a href="calendar-provider.html" title="Calendario">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="16" rx="2"/>
+<line x1="16" y1="3" x2="16" y2="7"/>
+<line x1="8" y1="3" x2="8" y2="7"/>
+<line x1="3" y1="11" x2="21" y2="11"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-providor.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes-proveedor.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+function withdrawFunds(){
+
+alert("Solicitud de retiro enviada ✨");
+
+}
+
+function downloadReport(){
+
+alert("Reporte descargado correctamente");
+
+}
+
+function exportInvoices(){
+
+alert("Facturas exportadas correctamente");
+
+}
+
+</script>
+
+</body>
+</html>

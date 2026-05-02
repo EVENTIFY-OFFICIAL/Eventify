@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notificaciones - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:90px 20px 170px;
+overflow-x:hidden;
+
+background:
+linear-gradient(rgba(234,242,245,0.86),rgba(234,242,245,0.86)),
+url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1600&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+padding:12px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.65);
+backdrop-filter:blur(12px);
+text-decoration:none;
+color:#1A334A;
+transition:0.3s;
+z-index:100;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.back-btn:hover{
+background:#1A334A;
+color:white;
+transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+max-width:750px;
+margin:0 auto 35px;
+padding:35px;
+
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(14px);
+
+border-radius:35px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.08),
+inset 0 1px 1px rgba(255,255,255,0.4);
+
+text-align:center;
+}
+
+.hero h1{
+font-size:46px;
+margin-bottom:10px;
+font-weight:700;
+}
+
+.hero p{
+font-size:15px;
+line-height:1.8;
+opacity:0.85;
+}
+
+/* BADGE */
+
+.badge{
+margin-top:18px;
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+padding:12px 18px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(10px);
+
+font-size:14px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.badge-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ff4d6d;
+}
+
+/* CONTAINER */
+
+.notifications-container{
+max-width:760px;
+margin:auto;
+}
+
+/* SECTION */
+
+.section-title{
+margin:25px 0 18px;
+font-size:14px;
+letter-spacing:1px;
+opacity:0.7;
+}
+
+/* NOTIFICATION */
+
+.notification{
+display:flex;
+gap:18px;
+
+background:rgba(255,255,255,0.65);
+backdrop-filter:blur(16px);
+
+padding:22px;
+
+border-radius:28px;
+
+margin-bottom:18px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.08),
+inset 0 1px 1px rgba(255,255,255,0.4);
+
+transition:0.35s;
+
+animation:fadeUp 0.45s ease;
+}
+
+.notification:hover{
+transform:translateY(-4px);
+}
+
+.notification.unread{
+border-left:6px solid #1A334A;
+background:rgba(243,249,252,0.82);
+}
+
+.notification-icon{
+min-width:54px;
+height:54px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:18px;
+
+background:white;
+
+font-size:24px;
+
+box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+.notification-content{
+flex:1;
+}
+
+.notification-content strong{
+display:block;
+line-height:1.7;
+font-size:15px;
+}
+
+.notification-content small{
+display:block;
+margin-top:8px;
+color:#4a7f9a;
+font-size:12px;
+}
+
+/* ACTIONS */
+
+.notification-actions{
+margin-top:16px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.small-btn{
+padding:10px 16px;
+border:none;
+border-radius:18px;
+cursor:pointer;
+
+font-size:12px;
+font-family:'Bodoni Moda', serif;
+
+transition:0.3s;
+}
+
+.small-btn:hover{
+transform:translateY(-2px);
+}
+
+.read-btn{
+background:#1A334A;
+color:white;
+}
+
+.delete-btn{
+background:#ffe6e6;
+color:#b03d3d;
+}
+
+/* EMPTY */
+
+.empty-state{
+margin-top:80px;
+text-align:center;
+
+padding:50px 30px;
+
+background:rgba(255,255,255,0.5);
+backdrop-filter:blur(14px);
+
+border-radius:35px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.empty-state h3{
+font-size:28px;
+margin-bottom:12px;
+}
+
+.empty-state p{
+opacity:0.75;
+line-height:1.8;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(18px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* NAVBAR IOS */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:700px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+z-index:100;
+}
+
+.navbar a{
+transition:0.3s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.navbar a svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+padding:28px 22px;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+.notification{
+padding:18px;
+}
+
+.notification-icon{
+width:48px;
+height:48px;
+font-size:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="home-organizador.html" class="back-btn">
+← Regresar
+</a>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1 id="title">
+Notificaciones
+</h1>
+
+<p>
+Mantente al tanto de tus eventos, mensajes,
+proveedores y recordatorios importantes.
+</p>
+
+<div class="badge">
+<div class="badge-dot"></div>
+<span id="badgeText">0 nuevas</span>
+</div>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="notifications-container"
+id="notificationsContainer"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<a href="create-event.html">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="8" x2="12" y2="16"/>
+<line x1="8" y1="12" x2="16" y2="12"/>
+</svg>
+
+</a>
+
+<a href="search-providers.html">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<line x1="20" y1="20" x2="16.5" y2="16.5"/>
+</svg>
+
+</a>
+
+<a href="messages.html">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<a href="notifications.html">
+
+<svg viewBox="0 0 24 24">
+<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
+<path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+</svg>
+
+</a>
+
+<a href="profile-organizer.html">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+let events =
+JSON.parse(localStorage.getItem("events")) || [];
+
+let notifications =
+JSON.parse(localStorage.getItem("notifications")) || [];
+
+/* EVITAR DUPLICADOS */
+
+function addNotification(message,type="event"){
+
+if(!notifications.some(n => n.message === message)){
+
+notifications.push({
+
+message:message,
+
+type:type,
+
+date:new Date().toLocaleString(),
+
+read:false
+
+});
+
+}
+
+}
+
+/* GENERAR */
+
+function generateEventNotifications(){
+
+events.forEach(event=>{
+
+let eventDate = new Date(event.date);
+
+let now = new Date();
+
+let diff = eventDate - now;
+
+let days = Math.floor(
+diff/(1000*60*60*24)
+);
+
+if(days > 0){
+
+addNotification(
+`Faltan ${days} días para tu evento "${event.name}"`,
+"party"
+);
+
+if(days === 30){
+
+addNotification(
+`Tu evento "${event.name}" es en 30 días. Confirma proveedores.`,
+"warning"
+);
+
+}
+
+if(days === 7){
+
+addNotification(
+`Tu evento "${event.name}" es en una semana.`,
+"calendar"
+);
+
+}
+
+if(days === 1){
+
+addNotification(
+`Mañana es tu evento "${event.name}". ¡Todo listo!`,
+"party"
+);
+
+}
+
+}
+
+if(days === 0){
+
+addNotification(
+`Hoy es tu evento "${event.name}". ¡Mucho éxito!`,
+"success"
+);
+
+}
+
+if(days < 0){
+
+addNotification(
+`Tu evento "${event.name}" finalizó.`,
+"done"
+);
+
+}
+
+});
+
+localStorage.setItem(
+"notifications",
+JSON.stringify(notifications)
+);
+
+}
+
+/* ICONOS */
+
+function getIcon(type){
+
+switch(type){
+
+case "party":
+return "🎉";
+
+case "warning":
+return "⚠️";
+
+case "calendar":
+return "📅";
+
+case "success":
+return "✨";
+
+case "done":
+return "✅";
+
+default:
+return "🔔";
+
+}
+
+}
+
+/* RENDER */
+
+function renderNotifications(){
+
+const container =
+document.getElementById("notificationsContainer");
+
+container.innerHTML = "";
+
+if(notifications.length === 0){
+
+container.innerHTML = `
+
+<div class="empty-state">
+
+<h3>
+Todo al día ✨
+</h3>
+
+<p>
+No tienes notificaciones pendientes
+por el momento.
+</p>
+
+</div>
+
+`;
+
+updateTitle();
+
+return;
+
+}
+
+notifications
+.slice()
+.reverse()
+.forEach((n,index)=>{
+
+let realIndex =
+notifications.length - 1 - index;
+
+container.innerHTML += `
+
+<div class="notification ${n.read ? '' : 'unread'}">
+
+<div class="notification-icon">
+
+${getIcon(n.type)}
+
+</div>
+
+<div class="notification-content">
+
+<strong>
+${n.message}
+</strong>
+
+<small>
+${n.date}
+</small>
+
+<div class="notification-actions">
+
+${!n.read ? `
+
+<button
+class="small-btn read-btn"
+onclick="markAsRead(${realIndex})">
+
+✓ Leída
+
+</button>
+
+` : ''}
+
+<button
+class="small-btn delete-btn"
+onclick="deleteNotification(${realIndex})">
+
+🗑 Eliminar
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+updateTitle();
+
+}
+
+/* READ */
+
+function markAsRead(index){
+
+notifications[index].read = true;
+
+localStorage.setItem(
+"notifications",
+JSON.stringify(notifications)
+);
+
+renderNotifications();
+
+}
+
+/* DELETE */
+
+function deleteNotification(index){
+
+notifications.splice(index,1);
+
+localStorage.setItem(
+"notifications",
+JSON.stringify(notifications)
+);
+
+renderNotifications();
+
+}
+
+/* UPDATE */
+
+function updateTitle(){
+
+const unread =
+notifications.filter(
+n => !n.read
+).length;
+
+document.getElementById("title")
+.textContent =
+
+unread > 0
+
+? `Notificaciones (${unread})`
+
+: "Notificaciones";
+
+document.getElementById("badgeText")
+.textContent =
+
+unread > 0
+
+? `${unread} nuevas`
+
+: "Todo leído";
+
+}
+
+/* INIT */
+
+generateEventNotifications();
+
+renderNotifications();
+
+</script>
+
+</body>
+</html>

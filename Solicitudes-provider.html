@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Solicitudes | Proveedor - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+min-height:100vh;
+overflow-x:hidden;
+color:#1A334A;
+padding:120px 20px 130px;
+
+background:
+linear-gradient(rgba(234,242,245,0.9),rgba(234,242,245,0.9)),
+url("https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+position:relative;
+}
+
+/* BLURS */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:white;
+top:-120px;
+right:-100px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#8da9b7;
+bottom:-60px;
+left:-80px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:#1A334A;
+color:white;
+transform:translateY(-2px);
+}
+
+/* HEADER */
+
+.header{
+max-width:1200px;
+margin:auto;
+margin-bottom:40px;
+}
+
+.header h1{
+font-size:52px;
+margin-bottom:10px;
+}
+
+.header p{
+font-size:15px;
+line-height:1.8;
+opacity:0.8;
+max-width:700px;
+}
+
+/* STATS */
+
+.stats{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.stat-card{
+padding:28px;
+border-radius:32px;
+background:rgba(255,255,255,0.65);
+backdrop-filter:blur(18px);
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+.stat-card h3{
+font-size:14px;
+opacity:0.7;
+margin-bottom:12px;
+}
+
+.stat-number{
+font-size:34px;
+font-weight:700;
+}
+
+.stat-extra{
+margin-top:6px;
+font-size:13px;
+opacity:0.7;
+}
+
+/* FILTERS */
+
+.filters{
+max-width:1200px;
+margin:auto;
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:10px;
+margin-bottom:35px;
+}
+
+.filters::-webkit-scrollbar{
+display:none;
+}
+
+.filter-btn{
+padding:12px 22px;
+border:none;
+border-radius:30px;
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(10px);
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+white-space:nowrap;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.filter-btn.active{
+background:#1A334A;
+color:white;
+}
+
+/* REQUESTS */
+
+.requests-grid{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.request-card{
+background:rgba(255,255,255,0.68);
+backdrop-filter:blur(18px);
+border-radius:35px;
+padding:28px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+transition:0.35s;
+position:relative;
+overflow:hidden;
+}
+
+.request-card:hover{
+transform:translateY(-6px);
+box-shadow:0 25px 45px rgba(0,0,0,0.12);
+}
+
+.client{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:20px;
+}
+
+.client img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.client-info h2{
+font-size:22px;
+margin-bottom:4px;
+}
+
+.client-info p{
+font-size:13px;
+opacity:0.7;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+}
+
+.tag{
+padding:8px 14px;
+border-radius:20px;
+font-size:12px;
+background:#dfe8ee;
+}
+
+.tag.vip{
+background:#1A334A;
+color:white;
+}
+
+.description{
+font-size:14px;
+line-height:1.8;
+opacity:0.85;
+margin-bottom:20px;
+}
+
+.event-details{
+display:grid;
+gap:12px;
+margin-bottom:25px;
+}
+
+.detail{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+padding-bottom:10px;
+border-bottom:1px solid rgba(0,0,0,0.06);
+}
+
+.detail strong{
+font-weight:600;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.btn{
+flex:1;
+padding:14px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+transition:0.3s;
+font-size:14px;
+min-width:120px;
+}
+
+.accept-btn{
+background:#1A334A;
+color:white;
+}
+
+.accept-btn:hover{
+background:#274863;
+transform:translateY(-2px);
+}
+
+.details-btn{
+background:white;
+color:#1A334A;
+}
+
+.details-btn:hover{
+transform:translateY(-2px);
+}
+
+.reject-btn{
+background:#f5dede;
+color:#8b2d2d;
+}
+
+.reject-btn:hover{
+transform:translateY(-2px);
+}
+
+/* PRIORITY */
+
+.priority{
+position:absolute;
+top:18px;
+right:18px;
+padding:8px 14px;
+border-radius:20px;
+font-size:11px;
+background:#ffe9b7;
+}
+
+/* EMPTY */
+
+.empty{
+display:none;
+max-width:600px;
+margin:70px auto 0;
+padding:45px 30px;
+border-radius:35px;
+text-align:center;
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(18px);
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:720px;
+background:rgba(255,255,255,0.6);
+border:1px solid rgba(255,255,255,0.45);
+backdrop-filter:blur(16px);
+display:flex;
+justify-content:space-around;
+padding:18px 20px;
+border-radius:35px;
+box-shadow:0 10px 35px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+}
+
+.navbar a{
+transition:0.35s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.06);
+}
+
+.navbar svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.35s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:38px;
+}
+
+.request-card{
+padding:22px;
+}
+
+.client-info h2{
+font-size:18px;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="home-provedor.html" class="back-btn">
+← Regresar
+</a>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>Solicitudes</h1>
+
+<p>
+Administra todas las solicitudes de clientes,
+revisa detalles del evento y responde rápidamente
+desde un solo lugar.
+</p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat-card">
+<h3>Solicitudes nuevas</h3>
+<div class="stat-number">12</div>
+<div class="stat-extra">Esta semana</div>
+</div>
+
+<div class="stat-card">
+<h3>Pendientes</h3>
+<div class="stat-number">5</div>
+<div class="stat-extra">Esperando respuesta</div>
+</div>
+
+<div class="stat-card">
+<h3>Aceptadas</h3>
+<div class="stat-number">18</div>
+<div class="stat-extra">Eventos confirmados</div>
+</div>
+
+<div class="stat-card">
+<h3>Ingresos potenciales</h3>
+<div class="stat-number">$96K</div>
+<div class="stat-extra">Cotizaciones activas</div>
+</div>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<button class="filter-btn active"
+onclick="filterRequests('Todos',event)">
+Todos
+</button>
+
+<button class="filter-btn"
+onclick="filterRequests('Bodas',event)">
+Bodas
+</button>
+
+<button class="filter-btn"
+onclick="filterRequests('Corporativos',event)">
+Corporativos
+</button>
+
+<button class="filter-btn"
+onclick="filterRequests('VIP',event)">
+VIP
+</button>
+
+</div>
+
+<!-- REQUESTS -->
+
+<div class="requests-grid" id="requestsGrid"></div>
+
+<!-- EMPTY -->
+
+<div class="empty" id="emptyState">
+
+<h2>No hay solicitudes</h2>
+
+<p>
+Las nuevas solicitudes de clientes aparecerán aquí.
+</p>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<!-- HOME -->
+
+<a href="home-provedor.html" title="Inicio">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5L12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+</svg>
+
+</a>
+
+<!-- SOLICITUDES -->
+
+<a href="Solicitudes-provider.html" title="Solicitudes">
+
+<svg viewBox="0 0 24 24">
+<path d="M8 6h13"/>
+<path d="M8 12h13"/>
+<path d="M8 18h13"/>
+<circle cx="3" cy="6" r="1.5"/>
+<circle cx="3" cy="12" r="1.5"/>
+<circle cx="3" cy="18" r="1.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages-provider.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments-proveedor.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- CALENDARIO -->
+
+<a href="calendar-provider.html" title="Calendario">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="16" rx="2"/>
+<line x1="16" y1="3" x2="16" y2="7"/>
+<line x1="8" y1="3" x2="8" y2="7"/>
+<line x1="3" y1="11" x2="21" y2="11"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-providor.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes-proveedor.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+const requests = [
+
+{
+name:"Mariana López",
+avatar:"https://randomuser.me/api/portraits/women/44.jpg",
+type:"Bodas",
+event:"Boda Premium",
+date:"25 Mayo 2026",
+location:"Hacienda Real · CDMX",
+budget:"$28,000 MXN",
+guests:"120 invitados",
+vip:true,
+priority:"Alta",
+description:"Busca servicio completo de DJ, iluminación premium y efectos especiales para boda de noche."
+},
+
+{
+name:"Grupo Nova",
+avatar:"https://randomuser.me/api/portraits/men/32.jpg",
+type:"Corporativos",
+event:"Evento Empresarial",
+date:"12 Junio 2026",
+location:"Santa Fe · CDMX",
+budget:"$42,000 MXN",
+guests:"200 invitados",
+vip:false,
+priority:"Media",
+description:"Empresa solicita cotización para audio, pantallas LED y ambientación corporativa."
+},
+
+{
+name:"Andrea Torres",
+avatar:"https://randomuser.me/api/portraits/women/68.jpg",
+type:"Bodas",
+event:"Wedding Party",
+date:"8 Julio 2026",
+location:"Cuernavaca",
+budget:"$35,000 MXN",
+guests:"180 invitados",
+vip:true,
+priority:"Alta",
+description:"Solicita paquete premium con DJ internacional, pista iluminada y show especial."
+}
+
+];
+
+let currentFilter = "Todos";
+
+const requestsGrid =
+document.getElementById("requestsGrid");
+
+function renderRequests(){
+
+requestsGrid.innerHTML = "";
+
+let filtered = requests;
+
+if(currentFilter === "VIP"){
+filtered = filtered.filter(r=>r.vip);
+}
+
+if(currentFilter === "Bodas"){
+filtered = filtered.filter(r=>r.type==="Bodas");
+}
+
+if(currentFilter === "Corporativos"){
+filtered = filtered.filter(r=>r.type==="Corporativos");
+}
+
+filtered.forEach(request=>{
+
+const card =
+document.createElement("div");
+
+card.classList.add("request-card");
+
+card.innerHTML = `
+
+<div class="priority">
+${request.priority}
+</div>
+
+<div class="client">
+
+<img src="${request.avatar}">
+
+<div class="client-info">
+
+<h2>${request.name}</h2>
+
+<p>${request.event}</p>
+
+</div>
+
+</div>
+
+<div class="tags">
+
+<div class="tag">
+${request.type}
+</div>
+
+<div class="tag">
+${request.guests}
+</div>
+
+${request.vip
+? `<div class="tag vip">VIP</div>`
+: ''
+}
+
+</div>
+
+<div class="description">
+${request.description}
+</div>
+
+<div class="event-details">
+
+<div class="detail">
+<span>Fecha</span>
+<strong>${request.date}</strong>
+</div>
+
+<div class="detail">
+<span>Ubicación</span>
+<strong>${request.location}</strong>
+</div>
+
+<div class="detail">
+<span>Presupuesto</span>
+<strong>${request.budget}</strong>
+</div>
+
+</div>
+
+<div class="buttons">
+
+<button class="btn accept-btn"
+onclick="acceptRequest('${request.name}')">
+Aceptar
+</button>
+
+<button class="btn details-btn"
+onclick="viewDetails('${request.name}')">
+Detalles
+</button>
+
+<button class="btn reject-btn"
+onclick="rejectRequest('${request.name}')">
+Rechazar
+</button>
+
+</div>
+
+`;
+
+requestsGrid.appendChild(card);
+
+});
+
+if(filtered.length === 0){
+
+document.getElementById("emptyState")
+.style.display = "block";
+
+}else{
+
+document.getElementById("emptyState")
+.style.display = "none";
+
+}
+
+}
+
+function filterRequests(type,e){
+
+currentFilter = type;
+
+document.querySelectorAll(".filter-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+e.target.classList.add("active");
+
+renderRequests();
+
+}
+
+function acceptRequest(name){
+
+alert("Solicitud aceptada de " + name + " ✨");
+
+}
+
+function rejectRequest(name){
+
+alert("Solicitud rechazada de " + name);
+
+}
+
+function viewDetails(name){
+
+window.location.href =
+"service-details.html?client=" + encodeURIComponent(name);
+
+}
+
+renderRequests();
+
+</script>
+
+</body>
+</html>

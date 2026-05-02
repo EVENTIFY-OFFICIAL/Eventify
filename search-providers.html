@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Proveedores - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:110px 20px 160px;
+background:
+linear-gradient(rgba(234,242,245,0.88),rgba(234,242,245,0.88)),
+url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+overflow-x:hidden;
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* BACK */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:20px;
+z-index:100;
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(12px);
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+color:#1A334A;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+background:#1A334A;
+color:white;
+}
+
+/* HERO */
+
+.hero{
+max-width:1200px;
+margin:auto;
+margin-bottom:35px;
+text-align:center;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:12px;
+font-weight:700;
+}
+
+.hero p{
+font-size:16px;
+line-height:1.7;
+max-width:700px;
+margin:auto;
+opacity:0.85;
+}
+
+/* SEARCH */
+
+.search-container{
+max-width:1200px;
+margin:auto;
+margin-bottom:25px;
+}
+
+.search-box{
+width:100%;
+padding:18px 24px;
+border-radius:30px;
+border:none;
+outline:none;
+font-size:15px;
+font-family:'Bodoni Moda', serif;
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(10px);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.search-box:focus{
+transform:translateY(-2px);
+}
+
+/* FILTERS */
+
+.filters{
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:10px;
+margin-top:18px;
+}
+
+.filters::-webkit-scrollbar{
+display:none;
+}
+
+.filter-btn{
+padding:12px 20px;
+border:none;
+border-radius:30px;
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(10px);
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+white-space:nowrap;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.filter-btn.active{
+background:#1A334A;
+color:white;
+}
+
+/* TABS */
+
+.tabs{
+max-width:1200px;
+margin:auto;
+display:flex;
+gap:14px;
+margin-bottom:30px;
+flex-wrap:wrap;
+}
+
+.tab{
+flex:1;
+min-width:180px;
+padding:16px;
+border-radius:25px;
+text-align:center;
+cursor:pointer;
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(10px);
+transition:0.3s;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.tab.active{
+background:#1A334A;
+color:white;
+transform:translateY(-2px);
+}
+
+/* PROVIDERS */
+
+.providers-grid{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+gap:24px;
+}
+
+.provider-card{
+background:rgba(255,255,255,0.62);
+backdrop-filter:blur(14px);
+border-radius:35px;
+overflow:hidden;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+transition:0.35s;
+position:relative;
+}
+
+.provider-card:hover{
+transform:translateY(-6px);
+}
+
+.provider-cover{
+position:relative;
+height:220px;
+overflow:hidden;
+}
+
+.provider-cover img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.4s;
+}
+
+.provider-card:hover .provider-cover img{
+transform:scale(1.06);
+}
+
+.provider-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+display:flex;
+align-items:flex-end;
+padding:24px;
+color:white;
+}
+
+.provider-overlay h3{
+font-size:30px;
+margin-bottom:6px;
+}
+
+.provider-content{
+padding:24px;
+}
+
+.stars{
+color:#b68a20;
+font-size:16px;
+margin-bottom:18px;
+}
+
+.quick-tags{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:22px;
+}
+
+.quick-tags span{
+padding:10px 14px;
+background:white;
+border-radius:30px;
+font-size:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.provider-description{
+font-size:14px;
+line-height:1.8;
+margin-bottom:22px;
+opacity:0.85;
+}
+
+/* ACTIONS */
+
+.actions{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.view-btn{
+flex:1;
+padding:15px;
+border:none;
+border-radius:22px;
+background:#1A334A;
+color:white;
+cursor:pointer;
+font-family:'Bodoni Moda', serif;
+transition:0.3s;
+}
+
+.view-btn:hover{
+transform:translateY(-2px);
+}
+
+.icon-btn{
+font-size:28px;
+cursor:pointer;
+transition:0.3s;
+color:#d0d0d0;
+}
+
+.icon-btn.heart.active{
+color:#ff4d6d;
+transform:scale(1.08);
+}
+
+.save{
+width:28px;
+height:28px;
+stroke:#c9c9c9;
+fill:none;
+stroke-width:2;
+cursor:pointer;
+transition:0.3s;
+}
+
+.save.active{
+fill:#1A334A;
+stroke:#1A334A;
+}
+
+/* EMPTY */
+
+.no-results{
+text-align:center;
+margin-top:60px;
+font-size:18px;
+display:none;
+}
+
+/* NAVBAR IOS */
+
+.navbar{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:700px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+z-index:100;
+overflow-x:auto;
+gap:18px;
+padding:18px 20px;
+}
+
+.navbar a{
+transition:0.3s;
+}
+
+.navbar a:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.navbar a svg{
+width:24px;
+height:24px;
+stroke:#1A334A;
+stroke-width:1.7;
+fill:none;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+stroke:#4a7f9a;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+.providers-grid{
+grid-template-columns:1fr;
+}
+
+.tabs{
+flex-direction:column;
+}
+
+.tab{
+min-width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="home-organizador.html" class="back-btn">
+← Regresar
+</a>
+
+<div class="hero">
+
+<h1>Proveedores</h1>
+
+<p>
+Descubre proveedores premium para bodas, eventos privados,
+XV años y celebraciones inolvidables.
+</p>
+
+</div>
+
+<div class="search-container">
+
+<input
+class="search-box"
+id="searchInput"
+placeholder="Buscar proveedor..."
+>
+
+<div class="filters">
+
+<button class="filter-btn active"
+onclick="filterCategory('Todos',event)">
+Todos
+</button>
+
+<button class="filter-btn"
+onclick="filterCategory('DJ',event)">
+🎧 DJs
+</button>
+
+<button class="filter-btn"
+onclick="filterCategory('Flores',event)">
+🌸 Flores
+</button>
+
+<button class="filter-btn"
+onclick="filterCategory('Foto',event)">
+📸 Foto y video
+</button>
+
+<button class="filter-btn"
+onclick="filterCategory('Pasteles',event)">
+🎂 Pasteles
+</button>
+
+<button class="filter-btn"
+onclick="filterCategory('Planeación',event)">
+✨ Planeación
+</button>
+
+</div>
+
+</div>
+
+<div class="tabs">
+
+<div class="tab active"
+onclick="switchTab('recomendados',event)">
+⭐ Recomendados
+</div>
+
+<div class="tab"
+onclick="switchTab('favoritos',event)">
+❤️ Favoritos
+</div>
+
+<div class="tab"
+onclick="switchTab('guardados',event)">
+📌 Guardados
+</div>
+
+</div>
+
+<div class="providers-grid"
+id="providersContainer"></div>
+
+<div class="no-results"
+id="noResults">
+
+No hay resultados disponibles ✨
+
+</div>
+
+<!-- NAVBAR IOS -->
+
+<div class="navbar">
+
+<!-- CREAR EVENTO -->
+
+<a href="create-event.html" title="Crear evento">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="8" x2="12" y2="16"/>
+<line x1="8" y1="12" x2="16" y2="12"/>
+</svg>
+
+</a>
+
+<!-- BUSCAR -->
+
+<a href="search-providers.html" title="Buscar proveedores">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<line x1="20" y1="20" x2="16.5" y2="16.5"/>
+</svg>
+
+</a>
+
+<!-- MENSAJES -->
+
+<a href="messages.html" title="Mensajes">
+
+<svg viewBox="0 0 24 24">
+<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+</svg>
+
+</a>
+
+<!-- PRESUPUESTO -->
+
+<a href="Presupuesto.html" title="Presupuesto">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 7h18v10H3z"/>
+<path d="M16 12h2"/>
+<path d="M3 10h18"/>
+</svg>
+
+</a>
+
+<!-- PAGOS -->
+
+<a href="Payments.html" title="Pagos">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="6" width="18" height="12" rx="2"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>
+
+</a>
+
+<!-- PERFIL -->
+
+<a href="profile-organizer.html" title="Perfil">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 20c0-4 16-4 16 0"/>
+</svg>
+
+</a>
+
+<!-- AJUSTES -->
+
+<a href="Ajustes.html" title="Ajustes">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.54V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.54 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.54-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.54-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.54V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.54 1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.54 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.54 1z"/>
+</svg>
+
+</a>
+
+</div>
+
+<script>
+
+/* LIMPIAR DATOS VIEJOS */
+localStorage.removeItem("providers");
+
+/* LINKS */
+
+const correctLinks = {
+
+1:"Providor-A.html",
+2:"Providor-C.html",
+3:"Providor-B.html"
+
+};
+
+/* PROVIDERS */
+
+let providers = [
+
+{
+id:1,
+name:"DJ Marco",
+category:"DJ Profesional",
+filter:"DJ",
+rating:"★★★★★ 4.9",
+reviews:129,
+img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop",
+description:"Experiencias premium con audio profesional, iluminación LED y mezclas en vivo.",
+tags:["Bodas","Audio premium","Luces"],
+fav:false,
+saved:false,
+link:"Providor-A.html"
+},
+
+{
+id:2,
+name:"Flores de Luna",
+category:"Decoración floral",
+filter:"Flores",
+rating:"★★★★☆ 4.5",
+reviews:87,
+img:"https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1200&auto=format&fit=crop",
+description:"Diseños florales románticos y elegantes para bodas y eventos exclusivos.",
+tags:["Arreglos","Bodas","Decoración"],
+fav:false,
+saved:false,
+link:"Providor-C.html"
+},
+
+{
+id:3,
+name:"Lens & Light",
+category:"Fotografía y video",
+filter:"Foto",
+rating:"★★★★★ 4.8",
+reviews:203,
+img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop",
+description:"Capturamos momentos únicos con fotografía editorial y video cinematográfico.",
+tags:["Video","Fotografía","Drone"],
+fav:false,
+saved:false,
+link:"Providor-B.html"
+},
+
+{
+id:4,
+name:"Pastelería Deluxe",
+category:"Pasteles personalizados",
+filter:"Pasteles",
+rating:"★★★★☆ 4.6",
+reviews:154,
+img:"https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=1200&auto=format&fit=crop",
+description:"Pasteles de lujo personalizados para eventos memorables y celebraciones únicas.",
+tags:["Fondant","Premium","Candy bar"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:5,
+name:"Eventos Premium",
+category:"Planeación integral",
+filter:"Planeación",
+rating:"★★★★★ 5.0",
+reviews:312,
+img:"https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200&auto=format&fit=crop",
+description:"Planeación completa para bodas y eventos exclusivos con atención personalizada.",
+tags:["Wedding planner","Luxury","Eventos"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:6,
+name:"Glow Lighting",
+category:"Iluminación profesional",
+filter:"Planeación",
+rating:"★★★★☆ 4.7",
+reviews:95,
+img:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop",
+description:"Iluminación LED inteligente y efectos visuales premium para eventos.",
+tags:["LED","Shows","Luces"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:7,
+name:"Golden Moments",
+category:"Fotografía premium",
+filter:"Foto",
+rating:"★★★★★ 5.0",
+reviews:278,
+img:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop",
+description:"Fotografía cinematográfica y capturas emocionales inolvidables.",
+tags:["Luxury","Cine","Drone"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:8,
+name:"Bloom Atelier",
+category:"Diseño floral",
+filter:"Flores",
+rating:"★★★★☆ 4.8",
+reviews:143,
+img:"https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=1200&auto=format&fit=crop",
+description:"Arreglos sofisticados y decoración floral moderna.",
+tags:["Ramos","Premium","Eventos"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:9,
+name:"Sweet Elegance",
+category:"Mesa de postres",
+filter:"Pasteles",
+rating:"★★★★★ 4.9",
+reviews:189,
+img:"https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=1200&auto=format&fit=crop",
+description:"Candy bars de lujo y experiencias dulces para eventos exclusivos.",
+tags:["Candy bar","Macarons","Premium"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:10,
+name:"Moonlight DJs",
+category:"DJ & Producción",
+filter:"DJ",
+rating:"★★★★☆ 4.7",
+reviews:221,
+img:"https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1200&auto=format&fit=crop",
+description:"DJs especializados en bodas premium y eventos de lujo.",
+tags:["DJ","Audio","Party"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:11,
+name:"Crystal Venue",
+category:"Salones de eventos",
+filter:"Planeación",
+rating:"★★★★★ 4.9",
+reviews:301,
+img:"https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop",
+description:"Espacios elegantes y modernos para bodas y eventos exclusivos.",
+tags:["Luxury","Salón","Eventos"],
+fav:false,
+saved:false,
+link:null
+},
+
+{
+id:12,
+name:"Velvet Catering",
+category:"Catering gourmet",
+filter:"Planeación",
+rating:"★★★★★ 4.8",
+reviews:240,
+img:"https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=1200&auto=format&fit=crop",
+description:"Experiencias gastronómicas premium con chefs especializados.",
+tags:["Gourmet","Buffet","Chef"],
+fav:false,
+saved:false,
+link:null
+}
+
+];
+
+/* FORCE LINKS */
+
+providers.forEach(p=>{
+
+if(correctLinks[p.id]){
+p.link = correctLinks[p.id];
+}
+
+});
+
+function saveData(){
+
+localStorage.setItem(
+"providers",
+JSON.stringify(providers)
+);
+
+}
+
+function goToProfile(link){
+
+if(link){
+
+window.location.href = link;
+
+}else{
+
+alert("Este perfil aún no está disponible ✨");
+
+}
+
+}
+
+let currentTab = "recomendados";
+let currentCategory = "Todos";
+
+function renderProviders(){
+
+const container =
+document.getElementById("providersContainer");
+
+const searchValue =
+document.getElementById("searchInput")
+.value.toLowerCase();
+
+container.innerHTML = "";
+
+let filtered = providers.filter(p=>
+
+p.name.toLowerCase().includes(searchValue)
+
+);
+
+if(currentCategory !== "Todos"){
+
+filtered = filtered.filter(
+p=>p.filter===currentCategory
+);
+
+}
+
+if(currentTab==="favoritos"){
+
+filtered = filtered.filter(p=>p.fav);
+
+}
+
+if(currentTab==="guardados"){
+
+filtered = filtered.filter(p=>p.saved);
+
+}
+
+if(filtered.length===0){
+
+document.getElementById("noResults")
+.style.display = "block";
+
+return;
+
+}else{
+
+document.getElementById("noResults")
+.style.display = "none";
+
+}
+
+filtered.forEach(p=>{
+
+container.innerHTML += `
+
+<div class="provider-card">
+
+<div class="provider-cover">
+
+<img src="${p.img}">
+
+<div class="provider-overlay">
+
+<div>
+
+<h3>${p.name}</h3>
+
+<p>${p.category}</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="provider-content">
+
+<div class="stars">
+
+${p.rating}
+(${p.reviews} reseñas)
+
+</div>
+
+<div class="quick-tags">
+
+${p.tags.map(tag=>`<span>${tag}</span>`).join("")}
+
+</div>
+
+<div class="provider-description">
+
+${p.description}
+
+</div>
+
+<div class="actions">
+
+<button class="view-btn"
+onclick="goToProfile('${p.link}')">
+
+Ver perfil
+
+</button>
+
+<span class="icon-btn heart ${p.fav?'active':''}"
+onclick="toggleFav(${p.id})">
+
+♥
+
+</span>
+
+<svg class="save ${p.saved?'active':''}"
+onclick="toggleSave(${p.id})"
+viewBox="0 0 24 24">
+
+<path d="M6 3h12v18l-6-4-6 4z"/>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function toggleFav(id){
+
+const provider =
+providers.find(p=>p.id===id);
+
+provider.fav = !provider.fav;
+
+saveData();
+
+renderProviders();
+
+}
+
+function toggleSave(id){
+
+const provider =
+providers.find(p=>p.id===id);
+
+provider.saved = !provider.saved;
+
+saveData();
+
+renderProviders();
+
+}
+
+function switchTab(tab,e){
+
+currentTab = tab;
+
+document.querySelectorAll(".tab")
+.forEach(t=>t.classList.remove("active"));
+
+e.target.classList.add("active");
+
+renderProviders();
+
+}
+
+function filterCategory(category,e){
+
+currentCategory = category;
+
+document.querySelectorAll(".filter-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+e.target.classList.add("active");
+
+renderProviders();
+
+}
+
+document.getElementById("searchInput")
+.addEventListener("input", renderProviders);
+
+renderProviders();
+
+</script>
+
+</body>
+</html>

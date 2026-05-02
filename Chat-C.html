@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chat - Flores de Luna</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+height:100vh;
+overflow:hidden;
+background:#dbe5ea;
+}
+
+/* FONDO */
+
+.chat-bg{
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(20,25,35,0.55),rgba(20,25,35,0.55)),
+url("https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1600&auto=format&fit=crop");
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+.blur{
+position:fixed;
+inset:0;
+backdrop-filter:blur(5px);
+z-index:-1;
+}
+
+/* HEADER */
+
+.chat-header{
+height:85px;
+padding:15px 20px;
+display:flex;
+align-items:center;
+gap:15px;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,0.15);
+color:white;
+}
+
+.back-btn{
+font-size:26px;
+cursor:pointer;
+text-decoration:none;
+color:white;
+}
+
+.provider-photo{
+width:52px;
+height:52px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid rgba(255,255,255,0.5);
+}
+
+.provider-info h2{
+font-size:20px;
+margin-bottom:2px;
+}
+
+.provider-info p{
+font-size:13px;
+opacity:0.85;
+}
+
+/* CHAT */
+
+.chat-container{
+height:calc(100vh - 165px);
+padding:25px 18px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+/* MENSAJES */
+
+.message{
+max-width:78%;
+padding:14px 18px;
+border-radius:24px;
+font-size:14px;
+line-height:1.6;
+animation:fadeIn .25s ease;
+position:relative;
+}
+
+.received{
+align-self:flex-start;
+background:rgba(255,255,255,0.9);
+color:#1A334A;
+border-bottom-left-radius:8px;
+}
+
+.sent{
+align-self:flex-end;
+background:#1A334A;
+color:white;
+border-bottom-right-radius:8px;
+}
+
+.time{
+font-size:11px;
+margin-top:6px;
+opacity:0.6;
+text-align:right;
+}
+
+/* INPUT */
+
+.chat-input-area{
+height:80px;
+padding:14px 18px;
+display:flex;
+gap:12px;
+align-items:center;
+background:rgba(255,255,255,0.16);
+backdrop-filter:blur(18px);
+}
+
+.chat-input{
+flex:1;
+padding:15px 18px;
+border:none;
+border-radius:30px;
+font-family:'Bodoni Moda', serif;
+font-size:14px;
+outline:none;
+background:rgba(255,255,255,0.94);
+}
+
+.send-btn{
+width:56px;
+height:56px;
+border:none;
+border-radius:50%;
+background:#1A334A;
+color:white;
+font-size:22px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.send-btn:hover{
+transform:scale(1.05);
+}
+
+/* SCROLL */
+
+.chat-container::-webkit-scrollbar{
+width:6px;
+}
+
+.chat-container::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.3);
+border-radius:10px;
+}
+
+/* ANIMACIÓN */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.message{
+max-width:88%;
+font-size:13px;
+}
+
+.provider-info h2{
+font-size:17px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="chat-bg"></div>
+<div class="blur"></div>
+
+<!-- HEADER -->
+
+<div class="chat-header">
+
+<a href="messages.html" class="back-btn">
+←
+</a>
+
+<img
+class="provider-photo"
+src="https://randomuser.me/api/portraits/women/44.jpg"
+/>
+
+<div class="provider-info">
+<h2>Flores de Luna</h2>
+<p>En línea ahora</p>
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div class="chat-container" id="chatContainer">
+
+<div class="message received">
+¡Hola! 🌸 Gracias por escribirnos a Flores de Luna.
+<div class="time">5:02 PM</div>
+</div>
+
+<div class="message sent">
+Holaaa ✨ Me interesa decoración floral para una boda.
+<div class="time">5:03 PM</div>
+</div>
+
+<div class="message received">
+¡Qué emoción! 💐 ¿Ya tienen fecha y lugar del evento?
+<div class="time">5:03 PM</div>
+</div>
+
+<div class="message sent">
+Sí 😊 Será en noviembre en una hacienda.
+<div class="time">5:04 PM</div>
+</div>
+
+<div class="message received">
+Ayyy qué bonito ✨ Las haciendas se ven increíbles con flores colgantes y arreglos románticos.
+<div class="time">5:04 PM</div>
+</div>
+
+<div class="message received">
+Trabajamos:
+• ceremonia
+• centro de mesa
+• entrada principal
+• pista
+• instalación floral aérea 🌷
+<div class="time">5:05 PM</div>
+</div>
+
+<div class="message sent">
+Justo quería algo elegante pero natural 👀
+<div class="time">5:06 PM</div>
+</div>
+
+<div class="message received">
+Perfecto 💕 Podemos trabajar tonos ivory, blush, blancos o incluso algo más moderno con verdes y velas.
+<div class="time">5:06 PM</div>
+</div>
+
+<div class="message sent">
+¿También hacen bouquet?
+<div class="time">5:07 PM</div>
+</div>
+
+<div class="message received">
+Sí claro 🌸
+Bouquet bridal, damas, boutonnières y arreglos personalizados.
+<div class="time">5:07 PM</div>
+</div>
+
+<div class="message received">
+Incluso hacemos pruebas florales antes del evento ✨
+<div class="time">5:08 PM</div>
+</div>
+
+<div class="message sent">
+OMG eso me encanta jajaja 😭
+<div class="time">5:08 PM</div>
+</div>
+
+<div class="message received">
+😂💕 Nos encanta cuidar todos los detalles.
+<div class="time">5:09 PM</div>
+</div>
+
+<div class="message received">
+Si quieres puedo enviarte inspiración y una propuesta visual dependiendo del estilo de tu boda ✨
+<div class="time">5:09 PM</div>
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="chat-input-area">
+
+<input
+type="text"
+class="chat-input"
+id="messageInput"
+placeholder="Escribe un mensaje..."
+>
+
+<button class="send-btn" onclick="sendMessage()">
+➤
+</button>
+
+</div>
+
+<script>
+
+const chatContainer =
+document.getElementById("chatContainer");
+
+const input =
+document.getElementById("messageInput");
+
+/* RESPUESTAS AUTOMÁTICAS */
+
+const autoReplies = [
+
+"¡Claro! 🌸",
+"Qué bonito suena eso ✨",
+"Sí 😊 podemos personalizar todo.",
+"Trabajamos flores naturales premium 💐",
+"Te puedo mandar inspiración enseguida.",
+"También hacemos instalaciones florales aéreas ✨",
+"Nos encanta crear ambientes románticos 💕",
+"Claro 🙌 hacemos propuestas completamente personalizadas.",
+"Podemos adaptarnos al estilo de tu evento.",
+"Sí tenemos disponibilidad para esa fecha 🌷",
+"Te puedo compartir fotos de bodas anteriores.",
+"También trabajamos iluminación con velas ✨",
+"El montaje lo hacemos horas antes del evento.",
+"Tenemos paquetes desde decoración básica hasta full floral experience 💐",
+"Gracias 😊 Nos emociona muchísimo ser parte de cada evento."
+
+];
+
+/* ENVIAR MENSAJE */
+
+function sendMessage(){
+
+const text = input.value.trim();
+
+if(text==="") return;
+
+const now = new Date();
+
+let hour =
+now.getHours().toString().padStart(2,"0");
+
+let minute =
+now.getMinutes().toString().padStart(2,"0");
+
+let time =
+`${hour}:${minute}`;
+
+chatContainer.innerHTML += `
+
+<div class="message sent">
+${text}
+<div class="time">${time}</div>
+</div>
+
+`;
+
+input.value = "";
+
+scrollBottom();
+
+/* RESPUESTA AUTOMÁTICA */
+
+setTimeout(()=>{
+
+let randomReply =
+autoReplies[
+Math.floor(Math.random()*autoReplies.length)
+];
+
+chatContainer.innerHTML += `
+
+<div class="message received">
+${randomReply}
+<div class="time">${time}</div>
+</div>
+
+`;
+
+scrollBottom();
+
+},1000);
+
+}
+
+/* ENTER */
+
+input.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+sendMessage();
+}
+
+});
+
+/* SCROLL */
+
+function scrollBottom(){
+
+chatContainer.scrollTop =
+chatContainer.scrollHeight;
+
+}
+
+scrollBottom();
+
+</script>
+
+</body>
+</html>

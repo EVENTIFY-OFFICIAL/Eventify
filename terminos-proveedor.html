@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Términos y Condiciones - Proveedor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:110px 20px 140px;
+overflow-x:hidden;
+background:
+linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 45%,#627782 100%);
+position:relative;
+}
+
+/* BACKGROUND */
+
+.bg-blur{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.35;
+z-index:-1;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:#ffffff;
+top:-100px;
+right:-80px;
+}
+
+.blur2{
+width:280px;
+height:280px;
+background:#9fb9c7;
+bottom:0;
+left:-80px;
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1A334A;
+border-radius:20px;
+}
+
+/* PROGRESS */
+
+.progress-bar{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+width:0%;
+background:linear-gradient(90deg,#4a7f9a,#1A334A);
+z-index:9999;
+}
+
+/* BACK BUTTON */
+
+.back{
+position:fixed;
+top:25px;
+left:25px;
+padding:12px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(10px);
+text-decoration:none;
+color:#1A334A;
+font-weight:600;
+transition:0.3s;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+z-index:100;
+}
+
+.back:hover{
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+max-width:1000px;
+margin:0 auto 40px;
+text-align:center;
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:14px;
+font-weight:700;
+}
+
+.hero p{
+max-width:760px;
+margin:auto;
+line-height:1.8;
+font-size:16px;
+opacity:0.85;
+}
+
+.last-update{
+display:inline-block;
+margin-top:18px;
+padding:10px 18px;
+border-radius:30px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(10px);
+font-size:13px;
+}
+
+/* LAYOUT */
+
+.layout{
+max-width:1300px;
+margin:auto;
+display:grid;
+grid-template-columns:280px 1fr;
+gap:30px;
+align-items:start;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:sticky;
+top:100px;
+background:rgba(255,255,255,0.35);
+backdrop-filter:blur(18px);
+padding:25px;
+border-radius:30px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+.sidebar h3{
+margin-bottom:18px;
+font-size:20px;
+}
+
+.sidebar a{
+display:block;
+text-decoration:none;
+color:#1A334A;
+padding:12px 0;
+font-size:14px;
+transition:0.3s;
+border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+.sidebar a:hover{
+padding-left:8px;
+color:#4a7f9a;
+}
+
+/* MAIN */
+
+.container{
+background:rgba(255,255,255,0.38);
+backdrop-filter:blur(20px);
+padding:35px;
+border-radius:35px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* TERM CARDS */
+
+.term-card{
+background:rgba(255,255,255,0.72);
+padding:28px;
+border-radius:28px;
+margin-bottom:24px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+animation:fadeUp .6s ease;
+transition:0.3s;
+}
+
+.term-card:hover{
+transform:translateY(-4px);
+}
+
+.term-card h2{
+margin-bottom:18px;
+font-size:26px;
+position:relative;
+padding-bottom:10px;
+}
+
+.term-card h2::after{
+content:"";
+position:absolute;
+left:0;
+bottom:0;
+width:70px;
+height:3px;
+border-radius:10px;
+background:linear-gradient(90deg,#4a7f9a,#1A334A);
+}
+
+.term-card p{
+line-height:1.95;
+font-size:15px;
+opacity:0.9;
+margin-bottom:12px;
+}
+
+/* WARNING BOX */
+
+.warning-box{
+margin-top:18px;
+padding:18px;
+border-radius:22px;
+background:rgba(201,76,76,0.08);
+border-left:5px solid #c94c4c;
+line-height:1.8;
+}
+
+/* ACCEPT BOX */
+
+.accept-box{
+margin-top:40px;
+padding:24px;
+border-radius:25px;
+text-align:center;
+background:linear-gradient(135deg,#4a7f9a,#1A334A);
+color:white;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.accept-box button{
+margin-top:18px;
+padding:14px 24px;
+border:none;
+border-radius:30px;
+background:white;
+color:#1A334A;
+font-family:'Bodoni Moda', serif;
+cursor:pointer;
+transition:0.3s;
+}
+
+.accept-box button:hover{
+transform:translateY(-2px);
+}
+
+/* TOP BUTTON */
+
+.top-btn{
+position:fixed;
+right:25px;
+bottom:100px;
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:#1A334A;
+color:white;
+font-size:20px;
+cursor:pointer;
+display:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+transition:0.3s;
+z-index:99;
+}
+
+.top-btn:hover{
+transform:translateY(-4px);
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(14px);
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,0.1);
+z-index:100;
+}
+
+.navbar a{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.navbar a svg{
+stroke:#1A334A;
+transition:0.3s;
+}
+
+.navbar a:hover svg{
+transform:translateY(-2px) scale(1.08);
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.layout{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+position:relative;
+top:0;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.container{
+padding:24px;
+}
+
+.term-card{
+padding:22px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<a href="login-provider.html" class="back">
+← Regresar
+</a>
+
+<div class="hero">
+
+<h1>Términos y Condiciones para Proveedores</h1>
+
+<p>
+Consulta las políticas, responsabilidades y condiciones
+que regulan el uso de Eventify para proveedores
+de servicios y experiencias para eventos.
+</p>
+
+<div class="last-update">
+Actualizado • Enero 2026
+</div>
+
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Contenido</h3>
+
+<a href="#definiciones">1. Definiciones</a>
+<a href="#registro">2. Registro</a>
+<a href="#uso">3. Uso adecuado</a>
+<a href="#servicios">4. Servicios</a>
+<a href="#pagos">5. Pagos</a>
+<a href="#cancelaciones">6. Cancelaciones</a>
+<a href="#propiedad">7. Propiedad intelectual</a>
+<a href="#responsabilidad">8. Responsabilidad</a>
+<a href="#suspension">9. Suspensión</a>
+<a href="#modificaciones">10. Modificaciones</a>
+<a href="#legislacion">11. Legislación</a>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+<div class="term-card" id="definiciones">
+
+<h2>📘 1. Definiciones</h2>
+
+<p>
+Para efectos del presente documento, se entenderá por
+“Proveedor” a toda persona física o moral que ofrece
+servicios relacionados con la organización de eventos
+dentro de la plataforma Eventify.
+</p>
+
+<p>
+“Usuario” o “Cliente” será la persona que contrata
+dichos servicios.
+</p>
+
+</div>
+
+<div class="term-card" id="registro">
+
+<h2>👤 2. Registro y veracidad</h2>
+
+<p>
+El proveedor se compromete a proporcionar información
+veraz, completa, actualizada y comprobable al momento
+de su registro.
+</p>
+
+<p>
+Eventify no será responsable por información falsa,
+incompleta o engañosa proporcionada por el proveedor.
+</p>
+
+<p>
+El proveedor será el único responsable de mantener
+la confidencialidad de sus credenciales de acceso.
+</p>
+
+</div>
+
+<div class="term-card" id="uso">
+
+<h2>⚖️ 3. Uso adecuado de la plataforma</h2>
+
+<p>
+El proveedor se obliga a utilizar la plataforma
+de manera ética, profesional y conforme a la legislación aplicable.
+</p>
+
+<div class="warning-box">
+
+Queda estrictamente prohibido:
+<br><br>
+
+• Publicar contenido fraudulento, ofensivo o ilegal.
+<br>
+• Ofrecer servicios inexistentes o engañosos.
+<br>
+• Suplantar identidad de terceros.
+<br>
+• Utilizar la plataforma para fines distintos a los establecidos.
+
+</div>
+
+</div>
+
+<div class="term-card" id="servicios">
+
+<h2>✨ 4. Servicios ofrecidos</h2>
+
+<p>
+El proveedor es el único responsable de la calidad,
+cumplimiento, ejecución y resultados de los servicios ofrecidos.
+</p>
+
+<p>
+Eventify no interviene en la prestación directa
+de los servicios, fungiendo únicamente como intermediario digital.
+</p>
+
+</div>
+
+<div class="term-card" id="pagos">
+
+<h2>💳 5. Contrataciones y pagos</h2>
+
+<p>
+Todos los acuerdos comerciales, pagos, anticipos,
+reembolsos y condiciones contractuales se realizan
+directamente entre proveedor y cliente.
+</p>
+
+<div class="warning-box">
+Eventify no garantiza pagos ni interviene
+en disputas económicas entre usuarios.
+</div>
+
+</div>
+
+<div class="term-card" id="cancelaciones">
+
+<h2>📅 6. Cancelaciones y reembolsos</h2>
+
+<p>
+El proveedor deberá establecer de manera clara
+sus políticas de cancelación.
+</p>
+
+<p>
+Eventify no será responsable por cancelaciones,
+incumplimientos o conflictos derivados de dichas operaciones.
+</p>
+
+</div>
+
+<div class="term-card" id="propiedad">
+
+<h2>©️ 7. Propiedad intelectual</h2>
+
+<p>
+Todo contenido publicado por el proveedor
+(imágenes, textos, logotipos y portafolio)
+deberá ser de su propiedad o contar con los derechos correspondientes.
+</p>
+
+<p>
+El proveedor otorga a Eventify una licencia no exclusiva
+para mostrar dicho contenido dentro de la plataforma.
+</p>
+
+</div>
+
+<div class="term-card" id="responsabilidad">
+
+<h2>🛡️ 8. Responsabilidad y limitación</h2>
+
+<p>
+Eventify no será responsable por daños directos
+o indirectos derivados del uso de la plataforma,
+incluyendo pérdidas económicas, daños reputacionales
+o incumplimientos contractuales entre usuarios.
+</p>
+
+</div>
+
+<div class="term-card" id="suspension">
+
+<h2>🚫 9. Suspensión y cancelación</h2>
+
+<p>
+Eventify se reserva el derecho de suspender
+o eliminar cuentas de proveedores que incumplan
+estos términos, sin necesidad de previo aviso.
+</p>
+
+</div>
+
+<div class="term-card" id="modificaciones">
+
+<h2>🔄 10. Modificaciones</h2>
+
+<p>
+Eventify podrá modificar estos términos
+en cualquier momento.
+</p>
+
+<p>
+El uso continuo de la plataforma implicará
+la aceptación de dichas modificaciones.
+</p>
+
+</div>
+
+<div class="term-card" id="legislacion">
+
+<h2>🇲🇽 11. Legislación aplicable</h2>
+
+<p>
+Estos términos se regirán conforme
+a la legislación vigente aplicable
+en el territorio correspondiente.
+</p>
+
+</div>
+
+<div class="accept-box">
+
+<h3>✓ Confirmación</h3>
+
+<p>
+El proveedor declara haber leído,
+comprendido y aceptado todos los términos
+y condiciones establecidos en este documento.
+</p>
+
+<button onclick="acceptTerms()">
+Aceptar términos
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<button class="top-btn" id="topBtn">
+↑
+</button>
+
+<script>
+
+/* PROGRESS BAR */
+
+window.addEventListener("scroll",()=>{
+
+const scrollTop =
+document.documentElement.scrollTop;
+
+const scrollHeight =
+document.documentElement.scrollHeight -
+document.documentElement.clientHeight;
+
+const progress =
+(scrollTop / scrollHeight) * 100;
+
+document.getElementById("progressBar")
+.style.width = progress + "%";
+
+/* TOP BUTTON */
+
+if(scrollTop > 400){
+
+document.getElementById("topBtn")
+.style.display = "block";
+
+}else{
+
+document.getElementById("topBtn")
+.style.display = "none";
+
+}
+
+});
+
+/* TOP BUTTON */
+
+document.getElementById("topBtn")
+.addEventListener("click",()=>{
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+});
+
+/* ACCEPT */
+
+function acceptTerms(){
+
+alert("Has aceptado los términos y condiciones ✨");
+
+}
+
+</script>
+
+</body>
+</html>

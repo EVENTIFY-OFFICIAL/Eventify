@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Cuenta - Eventify</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+min-height:100vh;
+font-family:'Bodoni Moda', serif;
+color:#1A334A;
+padding:60px 20px;
+position:relative;
+overflow-x:hidden;
+}
+
+/* FONDO */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:linear-gradient(135deg,#EAF2F5 0%,#8ca0ab 40%,#627782 100%);
+z-index:-2;
+}
+
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:
+radial-gradient(circle at 20% 30%, rgba(30,83,110,0.08), transparent 60%),
+radial-gradient(circle at 80% 70%, rgba(93,186,194,0.35), transparent 60%);
+z-index:-1;
+}
+
+.container{
+max-width:420px;
+margin:auto;
+text-align:center;
+}
+
+/* BOTÓN REGRESAR */
+.back{
+position:fixed;
+top:30px;
+left:40px;
+z-index:1000;
+padding:10px 20px;
+border-radius:50px;
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(6px);
+text-decoration:none;
+color:#1A334A;
+font-weight:600;
+transition:0.3s ease;
+}
+
+.back:hover{
+background:linear-gradient(135deg,#4a7f9ac5,#1A334A);
+color:white;
+}
+
+.logo img{
+max-width:180px;
+margin-bottom:30px;
+}
+
+h1{
+margin-bottom:25px;
+font-weight:600;
+}
+
+/* ===== SELECTOR DE TIPO ===== */
+.role-selector{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.role-btn{
+flex:1;
+padding:12px;
+border-radius:30px;
+border:1px solid #1A334A;
+cursor:pointer;
+background:white;
+transition:0.3s;
+font-size:14px;
+}
+
+.role-btn.active{
+background:#1A334A;
+color:white;
+}
+
+/* INPUTS */
+input{
+width:100%;
+padding:15px;
+border-radius:40px;
+border:1px solid #C9DDE6;
+font-size:15px;
+font-family:'Bodoni Moda', serif;
+outline:none;
+margin-bottom:15px;
+}
+
+input:focus{
+border-color:#1E536E;
+}
+
+.password-container{
+position:relative;
+margin-bottom:15px;
+}
+
+.password-container input{
+padding-right:45px;
+margin-bottom:0;
+}
+
+.toggle-password{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:18px;
+opacity:0.6;
+transition:0.3s;
+}
+
+.toggle-password:hover{
+opacity:1;
+}
+
+.password-rules{
+list-style:none;
+text-align:left;
+font-size:13px;
+margin:10px 0 20px 10px;
+}
+
+.password-rules li{
+margin-bottom:5px;
+color:#0d3f4a;
+transition:0.3s;
+}
+
+.password-rules li.valid{
+color:#2ecc71;
+font-weight:600;
+}
+
+/* BOTÓN */
+.button{
+width:100%;
+padding:18px;
+margin-top:10px;
+border-radius:50px;
+border:none;
+font-size:16px;
+cursor:pointer;
+transition:0.3s ease;
+background:linear-gradient(135deg,#4a7f9ac5,#1A334A);
+color:white;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.button:hover{
+transform:translateY(-3px);
+background:linear-gradient(135deg,#1A334A,#4a7f9ac5);
+box-shadow:0 0 25px rgba(156,193,212,0.5);
+}
+
+</style>
+</head>
+
+<body>
+
+<a class="back" href="login.html">← Regresar</a>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo-eventify.png" alt="Eventify Logo">
+</div>
+
+<h1>Crear cuenta</h1>
+
+<!-- SELECTOR -->
+<div class="role-selector">
+<div class="role-btn active" onclick="selectRole('cliente', this)">Cliente</div>
+<div class="role-btn" onclick="selectRole('organizador', this)">Organizador</div>
+</div>
+
+<form id="organizerForm">
+
+<input type="text" id="name" placeholder="Nombre completo" required>
+<input type="email" id="email" placeholder="Correo electrónico" required>
+
+<div class="password-container">
+<input type="password" id="password" placeholder="Contraseña" required>
+<span class="toggle-password" onclick="togglePassword('password', this)">👁</span>
+</div>
+
+<ul class="password-rules">
+<li id="length">• Mínimo 8 caracteres</li>
+<li id="uppercase">• Al menos una mayúscula</li>
+<li id="lowercase">• Al menos una minúscula</li>
+<li id="number">• Al menos un número</li>
+</ul>
+
+<div class="password-container">
+<input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+<span class="toggle-password" onclick="togglePassword('confirmPassword', this)">👁</span>
+</div>
+
+<button type="submit" class="button">Registrarse</button>
+
+</form>
+
+</div>
+
+<script>
+
+let selectedRole = "cliente";
+
+/* SELECCIONAR ROL */
+function selectRole(role, element){
+selectedRole = role;
+
+document.querySelectorAll(".role-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+element.classList.add("active");
+}
+
+/* SI YA EXISTE CUENTA */
+if(localStorage.getItem("organizerUser")){
+alert("Ya existe una cuenta registrada. Inicia sesión.");
+window.location.href = "login.html";
+}
+
+/* MOSTRAR PASSWORD */
+function togglePassword(id, element){
+const input = document.getElementById(id);
+
+if(input.type === "password"){
+input.type = "text";
+element.textContent = "🙈";
+}else{
+input.type = "password";
+element.textContent = "👁";
+}
+}
+
+/* VALIDACIÓN PASSWORD */
+const passwordInput = document.getElementById("password");
+
+passwordInput.addEventListener("input", function(){
+
+const value = passwordInput.value;
+
+document.getElementById("length").classList.toggle("valid", value.length >= 8);
+document.getElementById("uppercase").classList.toggle("valid", /[A-Z]/.test(value));
+document.getElementById("lowercase").classList.toggle("valid", /[a-z]/.test(value));
+document.getElementById("number").classList.toggle("valid", /[0-9]/.test(value));
+
+});
+
+/* REGISTRO */
+const form = document.getElementById('organizerForm');
+
+form.addEventListener('submit', function(e){
+e.preventDefault();
+
+const name = document.getElementById("name").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+const confirmPassword = document.getElementById("confirmPassword").value;
+
+const validPassword =
+password.length >= 8 &&
+/[A-Z]/.test(password) &&
+/[a-z]/.test(password) &&
+/[0-9]/.test(password);
+
+if(!validPassword){
+alert("La contraseña no cumple los requisitos.");
+return;
+}
+
+if(password !== confirmPassword){
+alert("Las contraseñas no coinciden.");
+return;
+}
+
+/* GUARDAR USUARIO */
+const user = {
+name: name,
+email: email,
+password: password,
+role: selectedRole
+};
+
+localStorage.setItem("organizerUser", JSON.stringify(user));
+localStorage.setItem("organizerName", name);
+localStorage.setItem("userRole", selectedRole);
+localStorage.setItem("isLoggedIn", "true");
+
+/* REDIRECCIÓN */
+window.location.href = "preferences.html";
+
+});
+
+</script>
+
+</body>
+</html>
